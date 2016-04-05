@@ -10,4 +10,7 @@
 
 @interface SearchBarView : UIView
 
+@property (nonatomic, strong) UIView *searchBar;
+
++(SearchBarView *)initSearchBarView;
 @end

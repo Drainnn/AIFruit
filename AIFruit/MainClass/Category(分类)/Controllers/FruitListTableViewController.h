@@ -10,4 +10,8 @@
 
 @interface FruitListTableViewController : UITableViewController
 
+@property (nonatomic, assign) int categoryId;
+
+@property (nonatomic, copy) NSString *tableViewTitle;
+
 @end

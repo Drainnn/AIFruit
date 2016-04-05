@@ -12,4 +12,34 @@
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
+//根据rgb得到颜色
+#define UIColorWithRGBA(r,g,b,a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
+
+//主题颜色 浅绿色
+#define themeColor UIColorWithRGBA(0, 137, 63, 1)
+
+//搜索页 tableview的背景颜色
+#define BGC_SEARCHTABLEVIEW UIColorWithRGBA(245, 246, 247, 1)
+
+//字体大小
+#define UIFontWithSize(s) [UIFont fontWithName:@"Arial" size:s];
+
+//请求图片url前缀
+#define categoryImgUrlPrefix @"http://ai-fruit-resources.oss-cn-shanghai.aliyuncs.com/CategoryImages/"
+
+/*
+ *分类接口
+ */
+#define CategoryInfoURL @"http://localhost:8080/ai-fruit-web/category/getAllcategory"
+//根据类别进入显示的水果列表接口
+#define FruitListByCategoryURL @"http://localhost:8080/ai-fruit-web/Fruit/getFruitInfoByCategoryId"
+
+
+/*
+ *搜索接口
+ */
+#define SearchFruitByKeywordURL @"http://localhost:8080/ai-fruit-web/Search/SearchFruitByKeyword"
+
 #endif /* PrefixHeader_pch */
+
+

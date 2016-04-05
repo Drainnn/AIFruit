@@ -7,21 +7,42 @@
 //
 
 #import "SearchListTableViewController.h"
+#import "FruitInfoTableViewCell.h"
+#import "AFNetworking.h"
+#import "MJExtension.h"
+#import "FruitList.h"
+#import "FruitInfoTableViewCell.h"
 
 @interface SearchListTableViewController ()
+
+@property (nonatomic, strong) NSMutableArray *dataArr;
 
 @end
 
 @implementation SearchListTableViewController
 
+-(NSMutableArray *)dataArr{
+    if (_dataArr == nil) {
+        _dataArr = [NSMutableArray array];
+    }
+    return _dataArr;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.tableView.tableFooterView = [[UIView alloc]init];
+    self.tableView.backgroundColor = BGC_SEARCHTABLEVIEW;
+    
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self sendRequest];
+    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,70 +50,84 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)sendRequest{
+    NSLog(@"%@",self.keyword);
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *para = @{
+                           @"keyword" : self.keyword
+                           };
+    [manager GET:SearchFruitByKeywordURL parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        NSString *result = [dict valueForKey:@"code"];
+        if ([result isEqualToString:@"200"]) {
+            NSArray *arr = [dict valueForKey:@"result"];
+            
+            if (arr.count > 0) {
+                
+                for (NSDictionary *dic in arr) {
+                    FruitList *list = [FruitList objectWithKeyValues:dic];
+                    [self.dataArr addObject:list];
+                }
+                
+                [self.tableView reloadData];
+                
+            }
+            else{
+                NSLog(@"null");
+            }
+        }
+        else{
+            NSLog(@"接口请求返回错误");
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"请求接口失败");
+    }];
+}
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+
+    return self.dataArr.count;
 }
 
-/*
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 115;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+  
+    if (self.dataArr.count > 0) {
+        
+        static NSString *identifier = @"fruitInfo";
+        FruitInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"FruitInfoTableViewCell" owner:nil options:nil] firstObject];
+        }
+        
+        
+        FruitList *list = [self.dataArr objectAtIndex:indexPath.row];
+        [cell setupCellWithFruitList:list];
+        
+        return cell;
+    }
+    else{
+        return nil;
+    }
     
-    // Configure the cell...
     
-    return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -10,4 +10,14 @@
 
 @implementation CategoryList
 
+
++(CategoryList *)setupCategoryList:(NSDictionary *)dic{
+    CategoryList *list = [[CategoryList alloc]init];
+    list.id = [[dic valueForKey:@"id"]intValue];
+    list.cateName = [dic valueForKey:@"cateName"];
+    list.detailName = [dic valueForKey:@"detailName"];
+    list.iconName = [dic valueForKey:@"iconName"];
+    return list;
+}
+
 @end

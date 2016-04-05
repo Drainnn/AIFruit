@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "AIFTabBarController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    
+    CGRect rect = [[UIScreen mainScreen]bounds];
+    self.window = [[UIWindow alloc]initWithFrame:rect];
+    
+    AIFTabBarController *mainTabController = [[AIFTabBarController alloc]init];
+    self.window.rootViewController = mainTabController;
+    
+    
+    
+    
     return YES;
 }
 
@@ -40,6 +52,32 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - 读取搜索记录
+-(void)loadSearchRecordFromFilePath
+{
+    //获取文件路径
+    NSArray *doucumentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *DocumentPath = [doucumentPaths objectAtIndex:0];
+    _searchRecordFilePath = [NSString stringWithFormat:@"%@/record.plist",DocumentPath];
+    NSLog(@"document:%@",DocumentPath);
+    
+    //判断文件路径是否存在
+    NSFileManager *mangager = [NSFileManager defaultManager];
+    if ([mangager fileExistsAtPath:_searchRecordFilePath]) {
+        _searchRecordDict = [NSMutableDictionary dictionaryWithContentsOfFile:_searchRecordFilePath];
+    }
+    else{
+        _searchRecordDict = [NSMutableDictionary dictionary];
+    }
+}
+
+
+-(NSString *)SetFilePath{
+    NSString *rootPath = NSHomeDirectory();
+    NSString *filePath = [NSString stringWithFormat:@"%@/Documents/user.plist",rootPath];
+    return filePath;
 }
 
 @end

@@ -7,92 +7,134 @@
 //
 
 #import "CategoryTableViewController.h"
+#import "CategoryInfoTableViewCell.h"
+#import "AFNetworking.h"
+#import "CategoryList.h"
+#import "MJExtension.h"
+#import "FruitListTableViewController.h"
 
 @interface CategoryTableViewController ()
+
+
+@property (nonatomic, strong) NSMutableArray *dataArr;
 
 @end
 
 @implementation CategoryTableViewController
 
+
+#pragma mark - 懒加载
+- (NSMutableArray *)dataArr{
+    
+    if (_dataArr == nil) {
+        _dataArr = [NSMutableArray array];
+    }
+    
+    return _dataArr;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    UIFont *font = UIFontWithSize(16);
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : themeColor,NSFontAttributeName : font}];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.tableView.tableFooterView = [[UIView alloc]init];
+    self.tableView.showsVerticalScrollIndicator = NO;
+    self.tableView.backgroundColor = UIColorWithRGBA(233, 234, 237, 1);
+    
+     [self sendRequest];
+  
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+   
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+   
+}
+
+- (void)sendRequest{
+    NSString *urlPath = CategoryInfoURL;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    [manager GET:urlPath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        NSString *code = [dict valueForKey:@"code"];
+        if ([code isEqualToString:@"200"]) {
+            NSArray *arr = [NSArray arrayWithArray:[dict valueForKey:@"result"]];
+            
+            for (NSDictionary *dic in arr) {
+                CategoryList *list = [CategoryList setupCategoryList:dic];
+                [self.dataArr addObject:list];
+            }
+            
+            
+            [self.tableView reloadData];
+            
+        }else{
+            NSLog(@"接口请求返回错误");
+        }
+        
+    
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"失败");
+    }];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+
+    return self.dataArr.count;
 }
 
-/*
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
-    // Configure the cell...
     
-    return cell;
+    if (_dataArr.count > 0) {
+        static NSString *identifier = @"categoryInfo";
+        CategoryInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"CategoryInfoTableViewCell" owner:nil options:nil] firstObject];
+        }
+        
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        CategoryList *list = [self.dataArr objectAtIndex:indexPath.row];
+        [cell setupCellWithCategoryList:list];
+        
+        return cell;
+    }
+    
+    return nil;
+    
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    FruitListTableViewController *VC = [[UIStoryboard storyboardWithName:@"FruitList" bundle:nil]instantiateInitialViewController];
+    CategoryList *list = [self.dataArr objectAtIndex:indexPath.row];
+    VC.categoryId = list.id;
+    VC.tableViewTitle = list.cateName;
+    [self.navigationController pushViewController:VC animated:YES];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

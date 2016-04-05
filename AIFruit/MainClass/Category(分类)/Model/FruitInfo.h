@@ -10,4 +10,17 @@
 
 @interface FruitInfo : NSObject
 
+@property (nonatomic, assign) int id;
+@property (nonatomic, copy) NSString *FruitName;
+@property (nonatomic, assign) int categoryID;
+@property (nonatomic, assign) double OriginPrice;
+@property (nonatomic, assign) double PrivilegePrice;
+@property (nonatomic, copy) NSString *singleStandard;
+@property (nonatomic, copy) NSString *standard;
+@property (nonatomic, assign) int AreaID;
+@property (nonatomic, assign) int stock;
+
+
++(FruitInfo *)setupFruitInfoWithDict:(NSDictionary *)dict;
+
 @end

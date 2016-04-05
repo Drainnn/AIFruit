@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CategoryList.h"
 
 @interface CategoryInfoTableViewCell : UITableViewCell
+
+
+@property (weak, nonatomic) IBOutlet UILabel *categoryNameLabel;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *categoryDetailNameLabel;
+
+
+@property (weak, nonatomic) IBOutlet UIImageView *categoryImgView;
+
+
+- (void)setupCellWithCategoryList:(CategoryList *)list;
 
 @end

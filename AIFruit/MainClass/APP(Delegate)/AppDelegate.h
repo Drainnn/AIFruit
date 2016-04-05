@@ -13,5 +13,8 @@
 @property (strong, nonatomic) UIWindow *window;
 
 
+@property (strong, nonatomic) NSMutableDictionary *searchRecordDict;//搜索记录的字典
+@property (strong, nonatomic) NSString *searchRecordFilePath;//搜素记录的文件
+
 @end
 

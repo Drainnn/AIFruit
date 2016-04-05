@@ -10,4 +10,13 @@
 
 @interface bannerSrcollView : UIView
 
+
+/** 占位图 **/
+@property (nonatomic, strong) UIImage *placeholderImage;
+
+/** 延迟时间 **/
+@property (nonatomic, assign) NSTimeInterval scrollDelayTime;
+
+-(instancetype)initWithFrame:(CGRect)frame WithImages:(NSArray *)imageArray;
+
 @end

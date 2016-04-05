@@ -10,4 +10,6 @@
 
 @interface SearchListTableViewController : UITableViewController
 
+@property (nonatomic, copy) NSString *keyword;
+
 @end

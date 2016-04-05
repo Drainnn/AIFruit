@@ -10,4 +10,9 @@
 
 @interface SearchHistoryCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *historyIconView;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *historyLabel;
+
 @end

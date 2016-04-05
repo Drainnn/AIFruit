@@ -10,4 +10,19 @@
 
 @implementation FruitList
 
++(FruitList *)setupFruitListWithDict:(NSDictionary *)dict{
+    FruitList *info = [[FruitList alloc]init];
+    info.id = [[dict valueForKey:@"id"]intValue];
+    info.mainImgUrl = [dict valueForKey:@"mainImgUrl"];
+    info.saleNum = [[dict valueForKey:@"saleNum"]intValue];
+    info.fruitName = [dict valueForKey:@"FruitName"];
+    info.originPrice = [[dict valueForKey:@"originPrice"] doubleValue];
+    info.privilegePrice = [[dict valueForKey:@"PrivilegePrice"] doubleValue];
+    info.standard = [dict valueForKey:@"standard"];
+    info.stockNum = [[dict valueForKey:@"stock"] intValue];
+    
+    return info;
+    
+}
+
 @end
