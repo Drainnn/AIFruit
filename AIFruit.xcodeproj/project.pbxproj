@@ -100,6 +100,8 @@
 		45C7BEC51C967E130039042F /* CategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C7BEC41C967E130039042F /* CategoryTableViewController.m */; };
 		45C7BECA1C967E5B0039042F /* CategoryInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C7BEC81C967E5B0039042F /* CategoryInfoTableViewCell.xib */; };
 		45C7BECD1C967E720039042F /* CategoryInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C7BECC1C967E720039042F /* CategoryInfoTableViewCell.m */; };
+		45CE689A1CB4ADD0006413F8 /* MineInfoViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45CE68981CB4ADD0006413F8 /* MineInfoViewCell.xib */; };
+		45CE689E1CB4ADFF006413F8 /* MineInfoViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CE689D1CB4ADFF006413F8 /* MineInfoViewCell.m */; };
 		45DB45F11CA8D3390083C62F /* bannerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45DB45EF1CA8D3390083C62F /* bannerViewCell.xib */; };
 		45DB45F41CA8D3B20083C62F /* bannerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DB45F31CA8D3B20083C62F /* bannerViewCell.m */; };
 		45F70CF61C992579005782A5 /* SearchList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45F70CF51C992579005782A5 /* SearchList.storyboard */; };
@@ -294,6 +296,9 @@
 		45C7BEC81C967E5B0039042F /* CategoryInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryInfoTableViewCell.xib; sourceTree = "<group>"; };
 		45C7BECB1C967E720039042F /* CategoryInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryInfoTableViewCell.h; sourceTree = "<group>"; };
 		45C7BECC1C967E720039042F /* CategoryInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryInfoTableViewCell.m; sourceTree = "<group>"; };
+		45CE68981CB4ADD0006413F8 /* MineInfoViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineInfoViewCell.xib; sourceTree = "<group>"; };
+		45CE689C1CB4ADFF006413F8 /* MineInfoViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineInfoViewCell.h; sourceTree = "<group>"; };
+		45CE689D1CB4ADFF006413F8 /* MineInfoViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineInfoViewCell.m; sourceTree = "<group>"; };
 		45DB45EF1CA8D3390083C62F /* bannerViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bannerViewCell.xib; sourceTree = "<group>"; };
 		45DB45F21CA8D3B20083C62F /* bannerViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bannerViewCell.h; sourceTree = "<group>"; };
 		45DB45F31CA8D3B20083C62F /* bannerViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bannerViewCell.m; sourceTree = "<group>"; };
@@ -726,6 +731,7 @@
 		45C7BEA11C9666850039042F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				45CE689B1CB4ADF2006413F8 /* CustomCell */,
 				4596C4901CAA27C600CF3129 /* MineTableViewController.h */,
 				4596C4911CAA27C600CF3129 /* MineTableViewController.m */,
 			);
@@ -743,6 +749,7 @@
 			isa = PBXGroup;
 			children = (
 				4596C48E1CAA279100CF3129 /* MineController.storyboard */,
+				45CE68981CB4ADD0006413F8 /* MineInfoViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -835,6 +842,15 @@
 				453231621C96D76A003881DF /* FruitInfoTableViewCell.m */,
 				45C7BECB1C967E720039042F /* CategoryInfoTableViewCell.h */,
 				45C7BECC1C967E720039042F /* CategoryInfoTableViewCell.m */,
+			);
+			path = CustomCell;
+			sourceTree = "<group>";
+		};
+		45CE689B1CB4ADF2006413F8 /* CustomCell */ = {
+			isa = PBXGroup;
+			children = (
+				45CE689C1CB4ADFF006413F8 /* MineInfoViewCell.h */,
+				45CE689D1CB4ADFF006413F8 /* MineInfoViewCell.m */,
 			);
 			path = CustomCell;
 			sourceTree = "<group>";
@@ -965,6 +981,7 @@
 				45BE7F7D1CA903A800F6571A /* JAVA_1.jpg in Resources */,
 				45F70CF61C992579005782A5 /* SearchList.storyboard in Resources */,
 				459FE8F71C97B05600E36928 /* Search.storyboard in Resources */,
+				45CE689A1CB4ADD0006413F8 /* MineInfoViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1035,6 +1052,7 @@
 				45C7BE861C965FE00039042F /* NSObject+MJIvar.m in Sources */,
 				459FE8FD1C97B26C00E36928 /* SearchBarView.m in Sources */,
 				450E47BE1CB3667700EF5C63 /* LoginAndRegisterViewController.m in Sources */,
+				45CE689E1CB4ADFF006413F8 /* MineInfoViewCell.m in Sources */,
 				45C7BE7A1C965FE00039042F /* AFURLConnectionOperation.m in Sources */,
 				45C7BE8D1C965FE00039042F /* UIScrollView+MJExtension.m in Sources */,
 				45F70CF91C9925E6005782A5 /* SearchListTableViewController.m in Sources */,
