@@ -12,6 +12,18 @@
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
+//导航栏高度
+#define navigation_height 64
+//屏幕宽度
+#define self_screen_width [UIScreen mainScreen].bounds.size.width
+//屏幕高度
+#define self_screen_height [UIScreen mainScreen].bounds.size.height
+//tabbar高度
+#define self_tabbar_height 49
+//分类->segmentcontrol高度
+#define categorySegmentHeight 45
+
+
 //根据rgb得到颜色
 #define UIColorWithRGBA(r,g,b,a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
 
@@ -21,11 +33,15 @@
 //搜索页 tableview的背景颜色
 #define BGC_SEARCHTABLEVIEW UIColorWithRGBA(245, 246, 247, 1)
 
+
 //字体大小
 #define UIFontWithSize(s) [UIFont fontWithName:@"Arial" size:s];
 
 //请求图片url前缀
 #define categoryImgUrlPrefix @"http://ai-fruit-resources.oss-cn-shanghai.aliyuncs.com/CategoryImages/"
+
+//水果列表图片url前缀
+#define mainImgUrlPrefix @"http://ai-fruit-resources.oss-cn-shanghai.aliyuncs.com/HeadImages"
 
 /*
  *分类接口

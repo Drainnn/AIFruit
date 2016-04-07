@@ -35,9 +35,6 @@
     
     self.tableView.tableFooterView = [[UIView alloc]init];
     
-    
-    NSArray *array = @[@"ni",@"hao",@"ke"];
-    NSLog(@"%@",array[1]);
    
 }
 
@@ -68,7 +65,6 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"bannerViewCell" owner:nil options:nil] firstObject];
     }
-    NSLog(@"%@",self.imgArr);
     [cell setupCellWithImages:self.imgArr];
     return cell;
 }

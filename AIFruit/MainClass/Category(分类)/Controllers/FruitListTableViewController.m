@@ -11,10 +11,15 @@
 #import "FruitInfoTableViewCell.h"
 #import "FruitInfo.h"
 #import "MJExtension.h"
+#import "drawTestView.h"
 
-@interface FruitListTableViewController ()
+@interface FruitListTableViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>{
+    BOOL clicked;
+}
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
+
+@property (nonatomic, strong) drawTestView *categoryView;
 
 @end
 
@@ -28,31 +33,109 @@
     return _dataArr;
 }
 
+-(drawTestView *)categoryView{
+    if (_categoryView == nil) {
+        _categoryView = [[drawTestView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 0)];
+    }
+    return _categoryView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    clicked = false;
     
-
-    
-
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.tintColor = themeColor;
-   
     
     
     self.navigationItem.title = self.tableViewTitle;
    
     
     self.tableView.tableFooterView = [[UIView alloc]init];
-    
+   
     [self sendRequest];
+    [self setupTitleView];
+    
+//    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClicked:)];
+//    tapRecognizer.numberOfTapsRequired = 1;
+//    [self.navigationItem.titleView addGestureRecognizer:tapRecognizer];
     
     
+}
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+//-(void)tapClicked:(UITapGestureRecognizer *)recognizer{
+//    NSLog(@"点击");
+//}
+
+-(void)setupTitleView{
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 60, 30)];
+    [btn setTitle:self.categoryName forState:UIControlStateNormal];
+    [btn setTitleColor:themeColor forState:UIControlStateNormal];
+    UIFont *font = UIFontWithSize(16);
+    btn.titleLabel.font = font;
+    [btn addTarget:self action:@selector(clicked:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = btn;
+}
+
+-(void)clicked:(id)sender{
+    if (!clicked) {
+        [self setCollectionView];
+        clicked = true;
+    }else{
+        [self removeListView];
+        clicked = false;
+    }
+
+}
+
+-(void)setCollectionView{
+//    UICollectionViewFlowLayout *fl = [[UICollectionViewFlowLayout alloc]init];
+//    UICollectionView *view = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 200 ) collectionViewLayout:fl];
+//    view.delegate = self;
+//    view.dataSource = self;
+//    view.backgroundColor = [UIColor redColor];
+//    [self.view addSubview:view];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+//    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 0)];
+    
+    
+    [_categoryView setBackgroundColor:[UIColor redColor]];
+    [_categoryView setupView];
+    [UIView animateWithDuration:0.2 animations:^{
+        _categoryView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 200) ;
+    }];
+    [self.view addSubview:_categoryView];
+    self.view.alpha = 0.9f;
+}
+
+-(void)removeListView{
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        _categoryView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 0);
+    } completion:^(BOOL finished) {
+        NSArray *subViewArr = _categoryView.subviews;
+        for (UIView *view in subViewArr) {
+            [view removeFromSuperview];
+        }
+        [_categoryView removeFromSuperview];
+        self.view.alpha = 1.0f;
+    }];
+    
+}
+
+
+
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return 2;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    UICollectionViewCell *cell = [[UICollectionViewCell alloc]init];
+    return cell;
 }
 
 - (void)didReceiveMemoryWarning {

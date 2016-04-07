@@ -17,7 +17,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     
     
     CGRect rect = [[UIScreen mainScreen]bounds];
@@ -25,9 +24,6 @@
     
     AIFTabBarController *mainTabController = [[AIFTabBarController alloc]init];
     self.window.rootViewController = mainTabController;
-    
-    
-    
     
     return YES;
 }

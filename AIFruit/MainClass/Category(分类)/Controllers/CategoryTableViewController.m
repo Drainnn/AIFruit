@@ -12,6 +12,7 @@
 #import "CategoryList.h"
 #import "MJExtension.h"
 #import "FruitListTableViewController.h"
+#import "FruitListViewController.h"
 
 @interface CategoryTableViewController ()
 
@@ -129,10 +130,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    FruitListTableViewController *VC = [[UIStoryboard storyboardWithName:@"FruitList" bundle:nil]instantiateInitialViewController];
+    FruitListViewController *VC = [[UIStoryboard storyboardWithName:@"FruitList" bundle:nil]instantiateInitialViewController];
     CategoryList *list = [self.dataArr objectAtIndex:indexPath.row];
     VC.categoryId = list.id;
-    VC.tableViewTitle = list.cateName;
+    VC.categoryName = list.cateName;
     [self.navigationController pushViewController:VC animated:YES];
 }
 

@@ -12,6 +12,9 @@
 @interface FruitInfoTableViewCell : UITableViewCell
 
 
+@property (weak, nonatomic) IBOutlet UIImageView *FrultImgView;
+
+
 @property (weak, nonatomic) IBOutlet UILabel *FruitNameLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *OriginPriceLabel;
