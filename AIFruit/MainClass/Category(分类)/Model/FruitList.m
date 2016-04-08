@@ -17,7 +17,7 @@
     info.saleNum = [[dict valueForKey:@"saleNum"]intValue];
     info.fruitName = [dict valueForKey:@"FruitName"];
     info.originPrice = [[dict valueForKey:@"originPrice"] doubleValue];
-    info.privilegePrice = [[dict valueForKey:@"PrivilegePrice"] doubleValue];
+    info.privilegePrice = [[dict valueForKey:@"privilegePrice"] doubleValue];
     info.standard = [dict valueForKey:@"standard"];
     info.stockNum = [[dict valueForKey:@"stock"] intValue];
     

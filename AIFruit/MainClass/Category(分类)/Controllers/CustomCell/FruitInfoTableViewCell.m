@@ -24,21 +24,30 @@
 
 -(void)setupCellWithFruitList:(FruitList *)list{
     
+    //图片
     NSString *imgStr = [NSString stringWithFormat:@"%@/%@/%@",mainImgUrlPrefix,[NSString stringWithFormat:@"%d",list.id],list.mainImgUrl];
     NSURL *url = [[NSURL alloc]initWithString:[imgStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    
     [self.FrultImgView sd_setImageWithURL:url placeholderImage:nil];
     CALayer * layer = [self.FrultImgView layer];
     [layer setCornerRadius:5.0];
     layer.borderColor = [
                          UIColorWithRGBA(233, 234, 237, 1.0f) CGColor];
     layer.borderWidth = 0.5f;
+    //水果名
     self.FruitNameLabel.text = list.fruitName;
-    NSString *originPriceStr = [NSString stringWithFormat:@"￥%.1f",list.originPrice];
     
+    //规格
     self.standardLabel.text = list.standard;
-    NSAttributedString *attStr = [[NSAttributedString alloc]initWithString:originPriceStr attributes:@{NSForegroundColorAttributeName:UIColorWithRGBA(187, 54, 8, 1.0f),NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),NSStrikethroughColorAttributeName:UIColorWithRGBA(187, 54, 8, 1.0f)}];
+    
+    //原价
+    NSString *originPriceStr = [NSString stringWithFormat:@"￥%.1f",list.originPrice];
+    NSAttributedString *attStr = [[NSAttributedString alloc]initWithString:originPriceStr attributes:@{NSForegroundColorAttributeName:UIColorWithRGBA(196, 196, 196, 1.0f),NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),NSStrikethroughColorAttributeName:UIColorWithRGBA(196, 196, 196, 1.0f)}];
     self.OriginPriceLabel.attributedText = attStr;
+    
+    //优惠价格
+    self.PrivilegePriceLabel.text = [NSString stringWithFormat:@"￥%.1f",list.privilegePrice];
+    //销售数量
+    self.saleNumLabel.text = [NSString stringWithFormat:@"已售：%d",list.saleNum];
 }
 
 - (void)drawRect:(CGRect)rect
@@ -46,7 +55,7 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
     CGContextFillRect(context, rect);
-    CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
+    CGContextSetStrokeColorWithColor(context, UIColorWithRGBA(237, 237, 237, 1.0f).CGColor);
     CGContextStrokeRect(context, CGRectMake(0, rect.size.height, rect.size.width, 1));
 }
 

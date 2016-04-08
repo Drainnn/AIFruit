@@ -35,8 +35,8 @@
     [_BtnArr addObject:_sixBtn];
     [_BtnArr addObject:_eightBtn];
     [_BtnArr addObject:_nineBtn];
-
-    for (int i; i < _BtnArr.count; i++) {
+    NSInteger length = _BtnArr.count;
+    for (int i = 0; i < length; i++) {
 
         UIButton *btn = [_BtnArr objectAtIndex:i];
         [btn setTitle:[NSString stringWithFormat:@"%d",i] forState:UIControlStateNormal];

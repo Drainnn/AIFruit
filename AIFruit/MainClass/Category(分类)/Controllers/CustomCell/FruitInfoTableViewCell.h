@@ -11,6 +11,7 @@
 
 @interface FruitInfoTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *PrivilegePriceLabel;
 
 @property (weak, nonatomic) IBOutlet UIImageView *FrultImgView;
 
@@ -20,6 +21,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *OriginPriceLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *standardLabel;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *saleNumLabel;
 
 -(void)setupCellWithFruitList:(FruitList *)list;
 

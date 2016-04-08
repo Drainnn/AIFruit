@@ -155,6 +155,7 @@
     self.dataTableView.delegate = self;
     self.dataTableView.rowHeight = 115;
     self.dataTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.dataTableView.backgroundColor = UIColorWithRGBA(245, 245, 245, 1.0f);
     [self.view addSubview:self.dataTableView];
 }
 

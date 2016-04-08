@@ -44,6 +44,8 @@
 		455FE09A1C969BB100E0C1D5 /* CategoryList.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FE0991C969BB100E0C1D5 /* CategoryList.m */; };
 		456F1C491C9828EE0098BC27 /* HotRecommendViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 456F1C471C9828EE0098BC27 /* HotRecommendViewCell.xib */; };
 		456F1C4C1C9829280098BC27 /* HotRecommendViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 456F1C4B1C9829280098BC27 /* HotRecommendViewCell.m */; };
+		458246291CB608EA00981DFD /* categorySegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 458246281CB608EA00981DFD /* categorySegment.m */; };
+		4582462C1CB6127900981DFD /* FruitListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4582462B1CB6127900981DFD /* FruitListViewController.m */; };
 		4584A35A1C9810D200D515AF /* SearchHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4584A3581C9810D200D515AF /* SearchHistoryCell.xib */; };
 		4584A35E1C98111400D515AF /* SearchHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4584A35D1C98111400D515AF /* SearchHistoryCell.m */; };
 		4596C48F1CAA279100CF3129 /* MineController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4596C48E1CAA279100CF3129 /* MineController.storyboard */; };
@@ -102,6 +104,7 @@
 		45C7BECD1C967E720039042F /* CategoryInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C7BECC1C967E720039042F /* CategoryInfoTableViewCell.m */; };
 		45CE689A1CB4ADD0006413F8 /* MineInfoViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45CE68981CB4ADD0006413F8 /* MineInfoViewCell.xib */; };
 		45CE689E1CB4ADFF006413F8 /* MineInfoViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CE689D1CB4ADFF006413F8 /* MineInfoViewCell.m */; };
+		45CE68A41CB4F95F006413F8 /* drawTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CE68A31CB4F95F006413F8 /* drawTestView.m */; };
 		45DB45F11CA8D3390083C62F /* bannerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45DB45EF1CA8D3390083C62F /* bannerViewCell.xib */; };
 		45DB45F41CA8D3B20083C62F /* bannerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DB45F31CA8D3B20083C62F /* bannerViewCell.m */; };
 		45F70CF61C992579005782A5 /* SearchList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45F70CF51C992579005782A5 /* SearchList.storyboard */; };
@@ -194,6 +197,10 @@
 		456F1C471C9828EE0098BC27 /* HotRecommendViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotRecommendViewCell.xib; sourceTree = "<group>"; };
 		456F1C4A1C9829280098BC27 /* HotRecommendViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotRecommendViewCell.h; sourceTree = "<group>"; };
 		456F1C4B1C9829280098BC27 /* HotRecommendViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotRecommendViewCell.m; sourceTree = "<group>"; };
+		458246271CB608EA00981DFD /* categorySegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = categorySegment.h; sourceTree = "<group>"; };
+		458246281CB608EA00981DFD /* categorySegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = categorySegment.m; sourceTree = "<group>"; };
+		4582462A1CB6127900981DFD /* FruitListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FruitListViewController.h; sourceTree = "<group>"; };
+		4582462B1CB6127900981DFD /* FruitListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FruitListViewController.m; sourceTree = "<group>"; };
 		4584A3581C9810D200D515AF /* SearchHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchHistoryCell.xib; sourceTree = "<group>"; };
 		4584A35C1C98111400D515AF /* SearchHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHistoryCell.h; sourceTree = "<group>"; };
 		4584A35D1C98111400D515AF /* SearchHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryCell.m; sourceTree = "<group>"; };
@@ -299,6 +306,8 @@
 		45CE68981CB4ADD0006413F8 /* MineInfoViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineInfoViewCell.xib; sourceTree = "<group>"; };
 		45CE689C1CB4ADFF006413F8 /* MineInfoViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineInfoViewCell.h; sourceTree = "<group>"; };
 		45CE689D1CB4ADFF006413F8 /* MineInfoViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineInfoViewCell.m; sourceTree = "<group>"; };
+		45CE68A21CB4F95F006413F8 /* drawTestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = drawTestView.h; sourceTree = "<group>"; };
+		45CE68A31CB4F95F006413F8 /* drawTestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = drawTestView.m; sourceTree = "<group>"; };
 		45DB45EF1CA8D3390083C62F /* bannerViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bannerViewCell.xib; sourceTree = "<group>"; };
 		45DB45F21CA8D3B20083C62F /* bannerViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bannerViewCell.h; sourceTree = "<group>"; };
 		45DB45F31CA8D3B20083C62F /* bannerViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bannerViewCell.m; sourceTree = "<group>"; };
@@ -438,6 +447,15 @@
 				455FE0941C96959600E0C1D5 /* PrefixHeader.pch */,
 			);
 			path = "Utility(工具类)";
+			sourceTree = "<group>";
+		};
+		458246261CB607EC00981DFD /* CustomSegment */ = {
+			isa = PBXGroup;
+			children = (
+				458246271CB608EA00981DFD /* categorySegment.h */,
+				458246281CB608EA00981DFD /* categorySegment.m */,
+			);
+			path = CustomSegment;
 			sourceTree = "<group>";
 		};
 		4584A35B1C9810FB00D515AF /* CustomCell */ = {
@@ -802,11 +820,16 @@
 		45C7BEBD1C967DC20039042F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				458246261CB607EC00981DFD /* CustomSegment */,
 				45C7BEC01C967DDA0039042F /* CustomCell */,
 				45C7BEC31C967E130039042F /* CategoryTableViewController.h */,
 				45C7BEC41C967E130039042F /* CategoryTableViewController.m */,
 				453231641C96D8CD003881DF /* FruitListTableViewController.h */,
 				453231651C96D8CD003881DF /* FruitListTableViewController.m */,
+				45CE68A21CB4F95F006413F8 /* drawTestView.h */,
+				45CE68A31CB4F95F006413F8 /* drawTestView.m */,
+				4582462A1CB6127900981DFD /* FruitListViewController.h */,
+				4582462B1CB6127900981DFD /* FruitListViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1009,10 +1032,12 @@
 				4532315B1C96D4B3003881DF /* FruitInfo.m in Sources */,
 				45C7BEB91C967CC00039042F /* FastRowTableViewCell.m in Sources */,
 				455FE09A1C969BB100E0C1D5 /* CategoryList.m in Sources */,
+				458246291CB608EA00981DFD /* categorySegment.m in Sources */,
 				450E47BF1CB3667700EF5C63 /* RegisterViewController.m in Sources */,
 				45C7BE8B1C965FE00039042F /* MJRefreshFooterView.m in Sources */,
 				45C7BE751C965FE00039042F /* AFHTTPRequestOperation.m in Sources */,
 				453B6A3E1CA503AC00D3CA77 /* SDWebImageManager.m in Sources */,
+				4582462C1CB6127900981DFD /* FruitListViewController.m in Sources */,
 				4596C4921CAA27C600CF3129 /* MineTableViewController.m in Sources */,
 				45C7BDB61C965CB10039042F /* ViewController.m in Sources */,
 				45C7BEBC1C967CFC0039042F /* HomeTableViewController.m in Sources */,
@@ -1045,6 +1070,7 @@
 				453B6A3F1CA503AC00D3CA77 /* SDWebImagePrefetcher.m in Sources */,
 				45C7BE891C965FE00039042F /* MJRefreshBaseView.m in Sources */,
 				45C7BE8A1C965FE00039042F /* MJRefreshConst.m in Sources */,
+				45CE68A41CB4F95F006413F8 /* drawTestView.m in Sources */,
 				453B6A3A1CA503AC00D3CA77 /* SDWebImageCompat.m in Sources */,
 				45C7BE7E1C965FE00039042F /* MBProgressHUD+MJ.m in Sources */,
 				45C7BE821C965FE00039042F /* MJFoundation.m in Sources */,
@@ -1216,7 +1242,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/AIFruit/Libs(第三方库)/SMS_SDK(短信验证码)",
 				);
-				GCC_PREFIX_HEADER = "/Applications/iOS_WorkSpace/AIFruit/AIFruit/Utility(工具类)/PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "/Applications/Kosne/GitProject_iOS/AIFruit/AIFruit/Utility(工具类)/PrefixHeader.pch";
 				INFOPLIST_FILE = AIFruit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1233,7 +1259,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/AIFruit/Libs(第三方库)/SMS_SDK(短信验证码)",
 				);
-				GCC_PREFIX_HEADER = "/Applications/iOS_WorkSpace/AIFruit/AIFruit/Utility(工具类)/PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "/Applications/Kosne/GitProject_iOS/AIFruit/AIFruit/Utility(工具类)/PrefixHeader.pch";
 				INFOPLIST_FILE = AIFruit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

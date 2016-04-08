@@ -24,7 +24,7 @@
     defaultColor = UIColorWithRGBA(209, 209, 209, 1.0f);
     selectColor = themeColor;
     self.layer.borderWidth = 0.5;
-    self.layer.borderColor = [[UIColor grayColor]CGColor];
+    self.layer.borderColor = [UIColorWithRGBA(196, 196, 196, 1.0f) CGColor];
     return self;
 }
 
