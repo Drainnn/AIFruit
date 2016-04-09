@@ -1236,7 +1236,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/AIFruit/Libs(第三方库)/SMS_SDK(短信验证码)",
 				);
-				GCC_PREFIX_HEADER = "/Applications/Kosne/GitProject_iOS/AIFruit/AIFruit/Utility(工具类)/PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/AIFruit/Utility(工具类)/PrefixHeader.pch";
 				INFOPLIST_FILE = AIFruit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1253,7 +1253,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/AIFruit/Libs(第三方库)/SMS_SDK(短信验证码)",
 				);
-				GCC_PREFIX_HEADER = "/Applications/Kosne/GitProject_iOS/AIFruit/AIFruit/Utility(工具类)/PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/AIFruit/Utility(工具类)/PrefixHeader.pch";
 				INFOPLIST_FILE = AIFruit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

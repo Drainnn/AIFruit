@@ -49,8 +49,16 @@
     
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.tintColor = themeColor;
+
     clicked = false;
     
+
+    
+    NSLog(@"sdf");
+    NSLog(@"werwer");
+    
+    NSLog(@"kobe");
+
     [self initdataTableView];
     [self initcategorySegment];
     [self setupTitleView];
