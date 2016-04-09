@@ -171,6 +171,7 @@
     [self.view addSubview:self.segmentControl];
 }
 
+//选项卡
 -(void)didselectedTitle:(NSInteger)selectedIndex{
     [self sendRequestWithIndex:selectedIndex];
 }

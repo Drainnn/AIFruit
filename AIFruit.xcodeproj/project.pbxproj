@@ -23,7 +23,6 @@
 		4532315B1C96D4B3003881DF /* FruitInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4532315A1C96D4B3003881DF /* FruitInfo.m */; };
 		453231601C96D748003881DF /* FruitInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4532315E1C96D748003881DF /* FruitInfoTableViewCell.xib */; };
 		453231631C96D76A003881DF /* FruitInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 453231621C96D76A003881DF /* FruitInfoTableViewCell.m */; };
-		453231661C96D8CD003881DF /* FruitListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 453231651C96D8CD003881DF /* FruitListTableViewController.m */; };
 		453B6A371CA503AC00D3CA77 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 453B6A171CA503AC00D3CA77 /* MKAnnotationView+WebCache.m */; };
 		453B6A381CA503AC00D3CA77 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 453B6A191CA503AC00D3CA77 /* NSData+ImageContentType.m */; };
 		453B6A391CA503AC00D3CA77 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 453B6A1B1CA503AC00D3CA77 /* SDImageCache.m */; };
@@ -152,8 +151,6 @@
 		4532315E1C96D748003881DF /* FruitInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FruitInfoTableViewCell.xib; sourceTree = "<group>"; };
 		453231611C96D76A003881DF /* FruitInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FruitInfoTableViewCell.h; sourceTree = "<group>"; };
 		453231621C96D76A003881DF /* FruitInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FruitInfoTableViewCell.m; sourceTree = "<group>"; };
-		453231641C96D8CD003881DF /* FruitListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FruitListTableViewController.h; sourceTree = "<group>"; };
-		453231651C96D8CD003881DF /* FruitListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FruitListTableViewController.m; sourceTree = "<group>"; };
 		453B6A161CA503AC00D3CA77 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		453B6A171CA503AC00D3CA77 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		453B6A181CA503AC00D3CA77 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -824,8 +821,6 @@
 				45C7BEC01C967DDA0039042F /* CustomCell */,
 				45C7BEC31C967E130039042F /* CategoryTableViewController.h */,
 				45C7BEC41C967E130039042F /* CategoryTableViewController.m */,
-				453231641C96D8CD003881DF /* FruitListTableViewController.h */,
-				453231651C96D8CD003881DF /* FruitListTableViewController.m */,
 				45CE68A21CB4F95F006413F8 /* drawTestView.h */,
 				45CE68A31CB4F95F006413F8 /* drawTestView.m */,
 				4582462A1CB6127900981DFD /* FruitListViewController.h */,
@@ -1057,7 +1052,6 @@
 				45C7BE8E1C965FE00039042F /* UIScrollView+MJRefresh.m in Sources */,
 				453B6A441CA503AC00D3CA77 /* UIImageView+HighlightedWebCache.m in Sources */,
 				453B6A381CA503AC00D3CA77 /* NSData+ImageContentType.m in Sources */,
-				453231661C96D8CD003881DF /* FruitListTableViewController.m in Sources */,
 				45C7BE811C965FE00039042F /* MJConst.m in Sources */,
 				45C7BEC51C967E130039042F /* CategoryTableViewController.m in Sources */,
 				45C7BE9D1C9663AC0039042F /* AIFTabBarController.m in Sources */,
