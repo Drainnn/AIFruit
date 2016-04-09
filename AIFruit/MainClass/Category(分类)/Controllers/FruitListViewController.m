@@ -50,6 +50,7 @@
     self.navigationController.navigationBar.tintColor = themeColor;
     
     NSLog(@"sdf");
+    NSLog(@"werwer");
     [self initdataTableView];
     [self initcategorySegment];
     [self setupTitleView];
