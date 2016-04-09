@@ -10,8 +10,7 @@
 
 @interface drawTestView : UIView
 
--(void)drawTrianglePath;
 
--(void)setupView;
+-(instancetype)initWithFrame:(CGRect)frame;
 
 @end

@@ -20,11 +20,12 @@
 
 -(instancetype)initWithFrame:(CGRect)frame{
     
-    self = [super initWithFrame:frame];
-    defaultColor = UIColorWithRGBA(209, 209, 209, 1.0f);
-    selectColor = themeColor;
-    self.layer.borderWidth = 0.5;
-    self.layer.borderColor = [UIColorWithRGBA(196, 196, 196, 1.0f) CGColor];
+    if (self = [super initWithFrame:frame]) {
+        defaultColor = UIColorWithRGBA(209, 209, 209, 1.0f);
+        selectColor = themeColor;
+        self.layer.borderWidth = 0.5;
+        self.layer.borderColor = [UIColorWithRGBA(196, 196, 196, 1.0f) CGColor];
+    }
     return self;
 }
 
@@ -43,7 +44,7 @@
         UIFont *font = UIFontWithSize(15);
         [btn.titleLabel setFont:font];
         [btn addTarget:self action:@selector(action:) forControlEvents:UIControlEventTouchUpInside];
-        [btn setTag:i];
+        [btn setTag:i+100];
         [self addSubview:btn];
         [TitleBtnArray addObject:btn];
     }
@@ -58,8 +59,12 @@
 }
 
 -(void)action:(UIButton *)sender{
-    [self changeSelectItemWithIndex:sender.tag];
+    [self changeSelectItemWithIndex:sender.tag-100];
+    if ([self.delegate respondsToSelector:@selector(didselectedTitle:)]) {
+        [self.delegate didselectedTitle:sender.tag-100];
+    }
 }
+
 
 -(void)changeSelectItemWithIndex:(NSInteger)index{
     if (currentItem != index) {

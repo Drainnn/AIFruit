@@ -18,6 +18,7 @@
 
 @interface categorySegment : UIView
 
+@property (nonatomic,weak) id <categorySegmentDelegate> delegate;
 
 -(void)addTitleBtnWithTitleArray:(NSArray *)titleArr;
 -(instancetype)initWithFrame:(CGRect)frame;

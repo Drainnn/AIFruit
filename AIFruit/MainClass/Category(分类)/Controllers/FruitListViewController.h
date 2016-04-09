@@ -18,5 +18,7 @@
 
 @property (nonatomic, copy) NSString *categoryName;
 
+@property (nonatomic, copy) NSMutableArray *cateNameArr;
+
 
 @end

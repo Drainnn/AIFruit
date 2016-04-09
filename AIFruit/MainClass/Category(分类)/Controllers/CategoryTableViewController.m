@@ -11,13 +11,14 @@
 #import "AFNetworking.h"
 #import "CategoryList.h"
 #import "MJExtension.h"
-#import "FruitListTableViewController.h"
 #import "FruitListViewController.h"
 
 @interface CategoryTableViewController ()
 
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
+
+@property (nonatomic, strong) NSMutableArray *cateNameArr;
 
 @end
 
@@ -32,6 +33,15 @@
     }
     
     return _dataArr;
+}
+
+- (NSMutableArray *)cateNameArr{
+    
+    if (_cateNameArr == nil) {
+        _cateNameArr = [NSMutableArray array];
+    }
+    
+    return _cateNameArr;
 }
 
 - (void)viewDidLoad {
@@ -70,8 +80,8 @@
             for (NSDictionary *dic in arr) {
                 CategoryList *list = [CategoryList setupCategoryList:dic];
                 [self.dataArr addObject:list];
+                [self.cateNameArr addObject:list.cateName];
             }
-            
             
             [self.tableView reloadData];
             
@@ -132,6 +142,7 @@
     CategoryList *list = [self.dataArr objectAtIndex:indexPath.row];
     VC.categoryId = list.id;
     VC.categoryName = list.cateName;
+    VC.cateNameArr = self.cateNameArr;
     [self.navigationController pushViewController:VC animated:YES];
 }
 

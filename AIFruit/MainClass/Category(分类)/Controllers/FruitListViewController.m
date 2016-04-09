@@ -14,8 +14,9 @@
 #import "FruitList.h"
 #import "MJExtension.h"
 
-@interface FruitListViewController ()<UITableViewDataSource,UITableViewDelegate>{
+@interface FruitListViewController ()<UITableViewDataSource,UITableViewDelegate,categorySegmentDelegate>{
     BOOL clicked;
+    NSInteger currentIndex;
 }
 
 
@@ -48,45 +49,68 @@
     
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.tintColor = themeColor;
-    
+    clicked = false;
     
     [self initdataTableView];
     [self initcategorySegment];
     [self setupTitleView];
      self.automaticallyAdjustsScrollViewInsets = NO;
-    [self sendRequest];
+    currentIndex = 7;
+    [self sendRequestWithIndex:0];
 }
 
 #pragma mark - 发送接口请求
--(void)sendRequest{
+-(void)sendRequestWithIndex:(NSInteger)index{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSDictionary *para = @{
                            @"categoryID":@(self.categoryId)
                            };
+    NSString *url = nil;
+    if (index == 0) {
+        url = FruitListByCategoryURL;
+    }else if (index == 1){
+        url = FrultListByCategorySortByPrice;
+    }else if (index == 2){
+        url = FrultListByCategorySortBySales;
+    }
     
-    [manager GET:FruitListByCategoryURL parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSDictionary *dict = (NSDictionary *)responseObject;
-        NSString *code = [dict valueForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
+    if (currentIndex != index) {
+        [manager GET:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
-            NSArray *arr = [dict valueForKey:@"result"];
-            
-            for (NSDictionary *dic in arr) {
-                FruitList *list = [FruitList objectWithKeyValues:dic];
-                [self.dataArr addObject:list];
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            NSString *code = [dict valueForKey:@"code"];
+            if ([code isEqualToString:@"200"]) {
+                
+                NSArray *arr = [dict valueForKey:@"result"];
+                
+                if (self.dataArr.count) {
+                    [self.dataArr removeAllObjects];
+                }
+                
+                for (NSDictionary *dic in arr) {
+                    FruitList *list = [FruitList objectWithKeyValues:dic];
+                    [self.dataArr addObject:list];
+                }
+                
+                [self.dataTableView reloadData];
+                
+            }else{
+                NSLog(@"发送接口请求返回错误");
             }
             
-            [self.dataTableView reloadData];
-            
-        }else{
-            NSLog(@"发送接口请求返回错误");
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"失败");
-    }];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"失败");
+        }];
+        currentIndex = index;
+    }
+}
+
+#pragma mark - 初始化菜单视图
+-(void)initCategoryMenu{
+    drawTestView *view = [[drawTestView alloc]initWithFrame:CGRectMake(0, navigation_height, self_screen_width, 0)];
+    _categoryView = view;
+    [self.view addSubview:_categoryView];
 }
 
 
@@ -115,7 +139,6 @@
 -(void)setCollectionView{
     
     [_categoryView setBackgroundColor:[UIColor redColor]];
-    [_categoryView setupView];
     [UIView animateWithDuration:0.2 animations:^{
         _categoryView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 200) ;
     }];
@@ -144,8 +167,15 @@
     self.segmentControl = [[categorySegment alloc]initWithFrame:CGRectMake(-0.5, navigation_height, self_screen_width+1, categorySegmentHeight)];
     NSArray *titleArr = @[@"默认",@"价格",@"热销"];
     [self.segmentControl addTitleBtnWithTitleArray:titleArr];
+    self.segmentControl.delegate = self;
     [self.view addSubview:self.segmentControl];
 }
+
+-(void)didselectedTitle:(NSInteger)selectedIndex{
+    [self sendRequestWithIndex:selectedIndex];
+}
+
+
 
 #pragma mark - 添加tableView
 -(void)initdataTableView{

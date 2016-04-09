@@ -18,26 +18,6 @@
 }
 */
 
--(void)drawTrianglePath{
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    [path moveToPoint:CGPointMake(20, 20)];
-    [path addLineToPoint:CGPointMake(self.frame.size.width - 40, 20)];
-    [path addLineToPoint:CGPointMake(self.frame.size.width / 2, self.frame.size.height)];
-    
-    [path closePath];
-    
-    path.lineWidth = 1.5;
-    
-    UIColor *fillColor = [UIColor greenColor];
-    [fillColor set];
-    [path fill];
-    
-    
-    UIColor *stokeColor = [UIColor blueColor];
-    [stokeColor set];
-    
-    [path stroke];
-}
 
 -(void)setupView{
     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 150, 50)];
@@ -49,6 +29,13 @@
 
 -(void)action:(id)sender{
     NSLog(@"zhz");
+}
+
+-(instancetype)initWithFrame:(CGRect)frame{
+    if (self = [super initWithFrame:frame]) {
+        [self setupView];
+    }
+    return self;
 }
 
 @end

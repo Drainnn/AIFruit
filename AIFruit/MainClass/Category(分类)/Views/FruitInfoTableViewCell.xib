@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -23,8 +24,8 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cFf-Xr-mAg">
-                        <rect key="frame" x="165" y="50" width="46" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cFf-Xr-mAg">
+                        <rect key="frame" x="177" y="50" width="46" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -35,19 +36,31 @@
                         <color key="textColor" red="0.37580192478291613" green="0.73212594696969702" blue="0.29603870482885264" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Of8-ka-ZSl">
-                        <rect key="frame" x="112" y="50" width="45" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Of8-ka-ZSl">
+                        <rect key="frame" x="112" y="50" width="57" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="1" green="0.03014565537" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDN-mv-smP">
-                        <rect key="frame" x="225" y="50" width="132" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDN-mv-smP">
+                        <rect key="frame" x="218" y="53" width="176" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="cFf-Xr-mAg" secondAttribute="bottom" constant="35.5" id="4iK-E8-9f1"/>
+                    <constraint firstItem="Of8-ka-ZSl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="104" id="9lG-nc-Mwb"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="PDN-mv-smP" secondAttribute="bottom" constant="38.5" id="QCU-0a-ih7"/>
+                    <constraint firstItem="PDN-mv-smP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="45" id="Uc5-Yj-G0z"/>
+                    <constraint firstItem="PDN-mv-smP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="210" id="auT-w7-3qI"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="PDN-mv-smP" secondAttribute="trailing" constant="8" id="fdz-8h-ftQ"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Of8-ka-ZSl" secondAttribute="bottom" constant="35.5" id="igk-2X-tcY"/>
+                    <constraint firstItem="cFf-Xr-mAg" firstAttribute="leading" secondItem="Of8-ka-ZSl" secondAttribute="trailing" constant="8" id="lmQ-8d-C7W"/>
+                    <constraint firstItem="Of8-ka-ZSl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="42" id="tGi-Th-0w6"/>
+                    <constraint firstItem="cFf-Xr-mAg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="42" id="tgB-4s-sjY"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="FruitNameLabel" destination="2q9-e2-SIQ" id="Qb1-mR-99U"/>

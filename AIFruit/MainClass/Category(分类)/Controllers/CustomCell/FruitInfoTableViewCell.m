@@ -22,6 +22,7 @@
 }
 
 
+//设置cell内容
 -(void)setupCellWithFruitList:(FruitList *)list{
     
     //图片
@@ -45,9 +46,15 @@
     self.OriginPriceLabel.attributedText = attStr;
     
     //优惠价格
-    self.PrivilegePriceLabel.text = [NSString stringWithFormat:@"￥%.1f",list.privilegePrice];
+    NSString *privilegePriceStr = [NSString stringWithFormat:@"￥%.1f",list.privilegePrice];
+    NSMutableAttributedString *privilAttStr = [[NSMutableAttributedString alloc]initWithString:privilegePriceStr];
+    //修改富文本中的不同文字的样式
+    UIFont *f1 = UIFontWithSize(19);
+    [privilAttStr addAttribute:NSFontAttributeName value:f1 range:NSMakeRange(0, 3)];
+    self.PrivilegePriceLabel.attributedText = privilAttStr;
     //销售数量
     self.saleNumLabel.text = [NSString stringWithFormat:@"已售：%d",list.saleNum];
+    
 }
 
 - (void)drawRect:(CGRect)rect

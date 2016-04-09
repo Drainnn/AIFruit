@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "AIFTabBarController.h"
+#import "AFNetworking.h"
+#import "MBProgressHUD.h"
 
 @interface AppDelegate ()
 
@@ -24,6 +26,9 @@
     
     AIFTabBarController *mainTabController = [[AIFTabBarController alloc]init];
     self.window.rootViewController = mainTabController;
+    
+    
+    
     
     return YES;
 }

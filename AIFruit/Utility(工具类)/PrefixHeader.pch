@@ -49,7 +49,8 @@
 #define CategoryInfoURL @"http://localhost:8080/ai-fruit-web/category/getAllcategory"
 //根据类别进入显示的水果列表接口
 #define FruitListByCategoryURL @"http://localhost:8080/ai-fruit-web/Fruit/getFruitInfoByCategoryId"
-
+#define FrultListByCategorySortBySales @"http://localhost:8080/ai-fruit-web/Fruit/getFruitInfoByCategoryIdSortbysales"
+#define FrultListByCategorySortByPrice @"http://localhost:8080/ai-fruit-web/Fruit/getFruitInfoByCategoryIdSortbyprice"
 
 /*
  *搜索接口

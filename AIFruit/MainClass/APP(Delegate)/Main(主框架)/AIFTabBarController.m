@@ -45,7 +45,7 @@
     
     //添加我的页面
     UIViewController *mineVC = [[UIStoryboard storyboardWithName:@"MineController" bundle:nil] instantiateInitialViewController];
-    [self addOneChildController:mineVC normalImage:[UIImage imageNamed:@"nav_search"] pressImage:[UIImage imageNamed:@"nav_search_active"] navigationBarTitle:@"我的"];
+    [self addOneChildController:mineVC normalImage:[UIImage imageNamed:@"nav_usercenter"] pressImage:[UIImage imageNamed:@"nav_usercenter_active"] navigationBarTitle:@"我的"];
     
     //添加登录注册
     UIViewController *loginRegistVC = [[UIStoryboard storyboardWithName:@"LoginAndRegister" bundle:nil] instantiateInitialViewController];
@@ -54,6 +54,17 @@
     UIFont *font = UIFontWithSize(16);
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : themeColor,NSFontAttributeName : font}];
      self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    
+
+    
+    // UIControlStateSelected情况的文字属性
+    NSMutableDictionary *selectedAtrrs = [NSMutableDictionary dictionary];
+    // 文字颜色
+    selectedAtrrs[NSForegroundColorAttributeName] = themeColor;
+    
+    
+    UITabBarItem *item = [UITabBarItem appearance];
+    [item setTitleTextAttributes:selectedAtrrs forState:UIControlStateSelected];
     
 
 }
@@ -75,7 +86,6 @@
     viewController.tabBarItem.image = normalImage;
     viewController.tabBarItem.selectedImage = pressImage;
     viewController.tabBarItem.title = title;
-    
     [self addChildViewController:viewController];
     
 }
