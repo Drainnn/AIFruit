@@ -11,6 +11,6 @@
 @interface drawTestView : UIView
 
 
--(instancetype)initWithFrame:(CGRect)frame;
-
+-(instancetype)initWithFrame:(CGRect)frame andCount:(NSInteger)count;
+-(void)setupViewWithArray:(NSArray *)cateNameArr;
 @end

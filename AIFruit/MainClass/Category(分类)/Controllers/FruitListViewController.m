@@ -10,9 +10,14 @@
 #import "categorySegment.h"
 #import "FruitInfoTableViewCell.h"
 #import "drawTestView.h"
+#import "categoryNameCell.h"
 #import "AFNetworking.h"
 #import "FruitList.h"
 #import "MJExtension.h"
+#import "detailViewController.h"
+#import "OtherViewController.h"
+
+#define btn_height 45
 
 @interface FruitListViewController ()<UITableViewDataSource,UITableViewDelegate,categorySegmentDelegate>{
     BOOL clicked;
@@ -26,22 +31,34 @@
 
 @property (nonatomic,strong) categorySegment *segmentControl;
 
+@property (nonatomic, strong) UIView *bgView;
+
 @end
 
 @implementation FruitListViewController
 
+#pragma mark - 懒加载
 -(NSMutableArray *)dataArr{
     if (_dataArr == nil) {
         _dataArr = [NSMutableArray array];
     }
     return _dataArr;
 }
-
 -(drawTestView *)categoryView{
-    if (_categoryView == nil) {
-        _categoryView = [[drawTestView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 0)];
+    if (!_categoryView) {
+        _categoryView = [[drawTestView alloc]initWithFrame:CGRectMake(0, navigation_height, self.view.bounds.size.width, 0) andCount:self.cateNameArr.count];
+        [_categoryView setupViewWithArray:self.cateNameArr];
+        [self.categoryView setBackgroundColor:[UIColor whiteColor]];
     }
     return _categoryView;
+}
+-(UIView *)bgView{
+    if (!_bgView) {
+        _bgView = [[UIView alloc]initWithFrame:self.view.frame];
+        [_bgView setBackgroundColor:[UIColor grayColor]];
+        [_bgView setAlpha:0.3];
+    }
+    return _bgView;
 }
 
 - (void)viewDidLoad {
@@ -51,13 +68,6 @@
     self.navigationController.navigationBar.tintColor = themeColor;
 
     clicked = false;
-    
-
-    
-    NSLog(@"sdf");
-    NSLog(@"werwer");
-    
-    NSLog(@"kobe");
 
     [self initdataTableView];
     [self initcategorySegment];
@@ -135,7 +145,7 @@
 #pragma mark - 标题点击事件
 -(void)clicked:(id)sender{
     if (!clicked) {
-        [self setCollectionView];
+        [self addCollectionView];
         clicked = true;
     }else{
         [self removeListView];
@@ -144,29 +154,25 @@
     
 }
 
--(void)setCollectionView{
-    
-    [_categoryView setBackgroundColor:[UIColor redColor]];
+-(void)addCollectionView{
+    [self.view addSubview:self.categoryView];
     [UIView animateWithDuration:0.2 animations:^{
-        _categoryView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 200) ;
+        self.categoryView.frame = CGRectMake(0, navigation_height, self.view.bounds.size.width, (self.cateNameArr.count/2+1)*btn_height+0.5) ;
     }];
-    [self.view addSubview:_categoryView];
-    self.view.alpha = 0.9f;
+    [self.view bringSubviewToFront:self.categoryView];
+    [self.dataTableView addSubview:self.bgView];
+    self.dataTableView.alpha = 0.7;
+    
 }
 
 -(void)removeListView{
-    
     [UIView animateWithDuration:0.2 animations:^{
-        _categoryView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 0);
+        self.categoryView.frame = CGRectMake(0, navigation_height, self.view.bounds.size.width, 0);
     } completion:^(BOOL finished) {
-        NSArray *subViewArr = _categoryView.subviews;
-        for (UIView *view in subViewArr) {
-            [view removeFromSuperview];
-        }
-        [_categoryView removeFromSuperview];
-        self.view.alpha = 1.0f;
+        [self.categoryView removeFromSuperview];
     }];
-    
+    [self.bgView removeFromSuperview];
+    self.dataTableView.alpha = 1.0;
 }
 
 
@@ -228,8 +234,13 @@
 }
 
 
-
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    detailViewController *detailVC = [detailViewController new];
+//    OtherViewController *otherVC = [OtherViewController new];
+    FruitList *list = [self.dataArr objectAtIndex:indexPath.row];
+    detailVC.id = list.id;
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
 
 
 

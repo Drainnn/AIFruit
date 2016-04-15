@@ -27,6 +27,8 @@
 //根据rgb得到颜色
 #define UIColorWithRGBA(r,g,b,a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
 
+#define UIColorWithRGB(r,g,b) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:1.0]
+
 //主题颜色 浅绿色
 #define themeColor UIColorWithRGBA(0, 137, 63, 1)
 
@@ -46,16 +48,26 @@
 /*
  *分类接口
  */
-#define CategoryInfoURL @"http://localhost:8080/ai-fruit-web/category/getAllcategory"
+//#define CategoryInfoURL @"http://localhost:8080/ai-fruit-web/category/getAllcategory"
+#define CategoryInfoURL @"http://aifruit.applinzi.com/category/getAllcategory"
 //根据类别进入显示的水果列表接口
-#define FruitListByCategoryURL @"http://localhost:8080/ai-fruit-web/Fruit/getFruitInfoByCategoryId"
-#define FrultListByCategorySortBySales @"http://localhost:8080/ai-fruit-web/Fruit/getFruitInfoByCategoryIdSortbysales"
-#define FrultListByCategorySortByPrice @"http://localhost:8080/ai-fruit-web/Fruit/getFruitInfoByCategoryIdSortbyprice"
+//#define FruitListByCategoryURL @"http://localhost:8080/ai-fruit-web/Fruit/getFruitInfoByCategoryId"
+#define FruitListByCategoryURL @"http://aifruit.applinzi.com/Fruit/getFruitInfoByCategoryId"
+//#define FrultListByCategorySortBySales @"http://localhost:8080/ai-fruit-web/Fruit/getFruitInfoByCategoryIdSortbysales"
+#define FrultListByCategorySortBySales @"http://aifruit.applinzi.com/Fruit/getFruitInfoByCategoryIdSortbysales"
+//#define FrultListByCategorySortByPrice @"http://localhost:8080/ai-fruit-web/Fruit/getFruitInfoByCategoryIdSortbyprice"
+#define FrultListByCategorySortByPrice @"http://aifruit.applinzi.com/Fruit/getFruitInfoByCategoryIdSortbyprice"
 
 /*
  *搜索接口
  */
 #define SearchFruitByKeywordURL @"http://localhost:8080/ai-fruit-web/Search/SearchFruitByKeyword"
+
+/*
+ *详情接口
+ */
+#define DetailFruitById @"http://aifruit.applinzi.com/Fruit/getFruitDetailById"
+
 
 #endif /* PrefixHeader_pch */
 

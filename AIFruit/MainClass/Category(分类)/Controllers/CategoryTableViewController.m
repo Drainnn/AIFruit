@@ -50,6 +50,7 @@
     UIFont *font = UIFontWithSize(16);
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : themeColor,NSFontAttributeName : font}];
     
+    
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.backgroundColor = UIColorWithRGBA(233, 234, 237, 1);
@@ -57,6 +58,12 @@
      [self sendRequest];
   
     
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
 }
 
 

@@ -26,9 +26,7 @@
     
     AIFTabBarController *mainTabController = [[AIFTabBarController alloc]init];
     self.window.rootViewController = mainTabController;
-    
-    
-    
+
     
     return YES;
 }

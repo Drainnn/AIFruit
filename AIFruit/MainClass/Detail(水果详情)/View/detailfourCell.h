@@ -1,13 +1,13 @@
 //
-//  testViewController.h
+//  detailfourCell.h
 //  AIFruit
 //
-//  Created by Kosne on 16/4/9.
+//  Created by Kosne on 16/4/14.
 //  Copyright © 2016年 Kosne. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface testViewController : UIViewController
+@interface detailfourCell : UITableViewCell
 
 @end

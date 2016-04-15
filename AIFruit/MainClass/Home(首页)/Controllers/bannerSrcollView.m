@@ -119,7 +119,6 @@
     _leftImageView = leftImageView;
     _centerImageView = centerImageView;
     _rightImageView = rightImageView;
-    
 }
 
 -(void)createPageControl {
