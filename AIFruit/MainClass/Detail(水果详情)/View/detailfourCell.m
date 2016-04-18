@@ -20,4 +20,9 @@
     // Configure the view for the selected state
 }
 
+-(void)setupCellWithFruit:(detailFruit *)fruit{
+    self.commentNumLabel.text = [NSString stringWithFormat:@"用户评价(%d)",fruit.commentNum];
+    self.greatCommentLabel.text = [NSString stringWithFormat:@"%d好评",fruit.greatComment];
+}
+
 @end

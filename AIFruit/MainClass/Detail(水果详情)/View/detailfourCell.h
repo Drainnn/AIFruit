@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "detailFruit.h"
 
 @interface detailfourCell : UITableViewCell
+
+
+@property (weak, nonatomic) IBOutlet UILabel *commentNumLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *greatCommentLabel;
+
+-(void)setupCellWithFruit:(detailFruit *)fruit;
 
 @end

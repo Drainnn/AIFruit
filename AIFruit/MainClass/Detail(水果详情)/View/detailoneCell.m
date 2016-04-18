@@ -7,6 +7,13 @@
 //
 
 #import "detailoneCell.h"
+#import "NSString+OriginPriceString.h"
+
+@interface detailoneCell (){
+    int num;
+}
+
+@end
 
 @implementation detailoneCell
 
@@ -28,7 +35,28 @@
     [privilAttr addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, 1)];
     self.privilPrice.attributedText = privilAttr;
     self.privilPrice.textColor = UIColorWithRGB(242, 34, 72);
-    self.originPrice.text = [NSString stringWithFormat:@"%.1f",fruit.originPrice];
+    
+    self.originPrice.attributedText = [NSString setOriginPriceWithPrice:fruit.originPrice];
+    
+    [self.reduceBtn setTitle:@"-" forState:UIControlStateNormal];
+    [self.reduceBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [self.reduceBtn addTarget:self action:@selector(action:) forControlEvents:UIControlEventTouchUpInside];
+    [self.increaseBtn setTitle:@"+" forState:UIControlStateNormal];
+    [self.increaseBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [self.increaseBtn addTarget:self action:@selector(action:) forControlEvents:UIControlEventTouchUpInside];
+    self.numLabel.textAlignment = NSTextAlignmentCenter;
+    num = 1;
+    self.numLabel.text = [NSString stringWithFormat:@"%d",num];
+    self.numLabel.layer.borderWidth = 0.5;
+    self.numLabel.layer.borderColor = [[UIColor grayColor]CGColor];
+    self.bgLabel.layer.cornerRadius = 4;
+    self.bgLabel.layer.borderWidth = 0.5;
+    self.bgLabel.layer.borderColor = [[UIColor grayColor]CGColor];
+}
+
+-(void)action:(id)sender{
+    num ++;
+    self.numLabel.text = [NSString stringWithFormat:@"%d",num];
 }
 
 @end

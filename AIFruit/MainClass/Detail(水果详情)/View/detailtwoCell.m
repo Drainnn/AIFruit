@@ -22,6 +22,10 @@
 
 -(void)setupCellWithFruit:(detailFruit *)fruit{
     self.guigeLabel.text = @"规格";
+    self.contLabel.layer.borderWidth = 0.5;
+    self.contLabel.layer.borderColor = themeColor.CGColor;
+    self.contLabel.layer.cornerRadius = 5.0;
+    self.contLabel.textAlignment = NSTextAlignmentCenter;
     self.contLabel.text = fruit.standard;
 }
 

@@ -35,6 +35,18 @@
 //搜索页 tableview的背景颜色
 #define BGC_SEARCHTABLEVIEW UIColorWithRGBA(245, 246, 247, 1)
 
+//星星等级视图宽度
+#define starView_Width 110
+//星星等级视图高度
+#define starView_Heigth 20
+//单个星星宽度
+#define star_Width 20
+//星星之间的间隔
+#define star_Space 2
+
+//红色
+#define fruit_red UIColorWithRGB(245,30,39)
+
 
 //字体大小
 #define UIFontWithSize(s) [UIFont fontWithName:@"Arial" size:s];
@@ -67,6 +79,11 @@
  *详情接口
  */
 #define DetailFruitById @"http://aifruit.applinzi.com/Fruit/getFruitDetailById"
+
+/*
+ *水果评论接口
+ */
+#define FruitCommentById @"http://aifruit.applinzi.com/comment/queryCommentById"
 
 
 #endif /* PrefixHeader_pch */

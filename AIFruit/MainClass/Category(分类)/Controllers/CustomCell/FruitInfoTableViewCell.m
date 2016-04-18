@@ -8,6 +8,7 @@
 
 #import "FruitInfoTableViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "NSString+OriginPriceString.h"
 
 @implementation FruitInfoTableViewCell
 
@@ -31,8 +32,7 @@
     [self.FrultImgView sd_setImageWithURL:url placeholderImage:nil];
     CALayer * layer = [self.FrultImgView layer];
     [layer setCornerRadius:5.0];
-    layer.borderColor = [
-                         UIColorWithRGBA(233, 234, 237, 1.0f) CGColor];
+    layer.borderColor = [UIColorWithRGBA(233, 234, 237, 1.0f) CGColor];
     layer.borderWidth = 0.5f;
     //水果名
     self.FruitNameLabel.text = list.fruitName;
@@ -41,9 +41,7 @@
     self.standardLabel.text = list.standard;
     
     //原价
-    NSString *originPriceStr = [NSString stringWithFormat:@"￥%.1f",list.originPrice];
-    NSAttributedString *attStr = [[NSAttributedString alloc]initWithString:originPriceStr attributes:@{NSForegroundColorAttributeName:UIColorWithRGBA(196, 196, 196, 1.0f),NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),NSStrikethroughColorAttributeName:UIColorWithRGBA(196, 196, 196, 1.0f)}];
-    self.OriginPriceLabel.attributedText = attStr;
+    self.OriginPriceLabel.attributedText = [NSString setOriginPriceWithPrice:list.originPrice];
     
     //优惠价格
     NSString *privilegePriceStr = [NSString stringWithFormat:@"￥%.1f",list.privilegePrice];

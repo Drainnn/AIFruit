@@ -100,7 +100,7 @@
             NSString *code = [dict valueForKey:@"code"];
             if ([code isEqualToString:@"200"]) {
                 
-                NSArray *arr = [dict valueForKey:@"result"];
+                NSArray *arr = [dict valueForKey:@"data"];
                 
                 if (self.dataArr.count) {
                     [self.dataArr removeAllObjects];

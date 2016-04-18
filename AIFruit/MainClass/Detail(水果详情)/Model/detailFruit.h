@@ -20,7 +20,9 @@
 @property (nonatomic, copy) NSString *area;
 @property (nonatomic, assign) int saleNum;
 @property (nonatomic, assign) int stockNum;
-
+@property (nonatomic, assign) int commentNum;
+@property (nonatomic, assign) int totalScore;
+@property (nonatomic, assign) int greatComment;
 
 
 @end

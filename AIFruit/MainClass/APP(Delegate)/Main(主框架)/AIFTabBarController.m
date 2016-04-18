@@ -43,13 +43,17 @@
     UIViewController *searchVC = [[UIStoryboard storyboardWithName:@"Search" bundle:nil] instantiateInitialViewController];
     [self addOneChildController:searchVC normalImage:[UIImage imageNamed:@"nav_search"] pressImage:[UIImage imageNamed:@"nav_search_active"] navigationBarTitle:@"搜索"];
     
+    //添加购物车
+    UIViewController *shoppingCarVC = [[UIStoryboard storyboardWithName:@"shoppingCarStoryboard" bundle:nil]instantiateInitialViewController];
+    [self addOneChildController:shoppingCarVC normalImage:[UIImage imageNamed:@"nav_cart"] pressImage:[UIImage imageNamed:@"nav_cart_active"] navigationBarTitle:@"购物车"];
+    
     //添加我的页面
     UIViewController *mineVC = [[UIStoryboard storyboardWithName:@"MineController" bundle:nil] instantiateInitialViewController];
     [self addOneChildController:mineVC normalImage:[UIImage imageNamed:@"nav_usercenter"] pressImage:[UIImage imageNamed:@"nav_usercenter_active"] navigationBarTitle:@"我的"];
     
     //添加登录注册
-    UIViewController *loginRegistVC = [[UIStoryboard storyboardWithName:@"LoginAndRegister" bundle:nil] instantiateInitialViewController];
-    [self addOneChildController:loginRegistVC normalImage:[UIImage imageNamed:@"nav_search"] pressImage:[UIImage imageNamed:@"nav_search_active"] navigationBarTitle:@"登录"];
+//    UIViewController *loginRegistVC = [[UIStoryboard storyboardWithName:@"LoginAndRegister" bundle:nil] instantiateInitialViewController];
+//    [self addOneChildController:loginRegistVC normalImage:[UIImage imageNamed:@"nav_search"] pressImage:[UIImage imageNamed:@"nav_search_active"] navigationBarTitle:@"登录"];
     
     UIFont *font = UIFontWithSize(16);
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : themeColor,NSFontAttributeName : font}];

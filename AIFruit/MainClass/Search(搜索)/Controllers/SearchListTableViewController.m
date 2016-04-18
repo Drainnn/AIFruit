@@ -61,7 +61,7 @@
         NSDictionary *dict = (NSDictionary *)responseObject;
         NSString *result = [dict valueForKey:@"code"];
         if ([result isEqualToString:@"200"]) {
-            NSArray *arr = [dict valueForKey:@"result"];
+            NSArray *arr = [dict valueForKey:@"data"];
             
             if (arr.count > 0) {
                 

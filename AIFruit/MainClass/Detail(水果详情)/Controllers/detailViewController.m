@@ -15,6 +15,7 @@
 #import "AFNetworking.h"
 #import "MJExtension.h"
 #import "detailFruit.h"
+#import "fruitCommentController.h"
 #define bg_Height 260
 
 @interface detailViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
@@ -115,7 +116,7 @@
         NSDictionary *dict = (NSDictionary *)responseObject;
         NSString *code = [dict valueForKey:@"code"];
         if ([@"200" isEqualToString:code]) {
-            NSDictionary *dic = [dict valueForKey:@"result"];
+            NSDictionary *dic = [dict valueForKey:@"data"];
             detailFruit *fruit = [detailFruit objectWithKeyValues:dic];
             self.fruit = fruit;
             
@@ -187,7 +188,7 @@
     }else if (indexPath.row == 1){
         return 50;
     }else if (indexPath.row == 2){
-        return 82;
+        return 65;
     }else{
         return 44;
     }
@@ -200,6 +201,7 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"detailoneCell" owner:nil options:nil] firstObject];
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setupCellWithFruit:self.fruit];
         return cell;
     }else if (indexPath.row == 1){
@@ -208,6 +210,7 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"detailtwoCell" owner:nil options:nil] firstObject];
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setupCellWithFruit:self.fruit];
         return cell;
     }else if (indexPath.row == 2){
@@ -216,6 +219,7 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"detailthreeCell" owner:nil options:nil] firstObject];
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setupCellWithFruit:self.fruit];
         return cell;
     }else{
@@ -224,11 +228,28 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"detailfourCell" owner:nil options:nil] firstObject];
         }
-//        [cell setupCellWithFruit:self.fruit];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell setupCellWithFruit:self.fruit];
         return cell;
     }
     
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == 3) {
+        int fruitId = self.fruit.id;
+        int commentNum = self.fruit.commentNum;
+        int totalScore = self.fruit.totalScore;
+        double greatComemnt = (1.0 * self.fruit.greatComment / self.fruit.commentNum);
+        fruitCommentController *fcVC = [[UIStoryboard storyboardWithName:@"fruitCommentStoryboard" bundle:nil]instantiateInitialViewController];
+        fcVC.fruitId = fruitId;
+        fcVC.commentNum = commentNum;
+        fcVC.totalScore = totalScore;
+        fcVC.greatComment = greatComemnt;
+        [self.navigationController pushViewController:fcVC animated:YES];
+    }
+}
+
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     

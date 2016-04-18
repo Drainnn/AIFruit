@@ -22,6 +22,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *numLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *bgLabel;
 
 -(void)setupCellWithFruit:(detailFruit *)fruit;
 

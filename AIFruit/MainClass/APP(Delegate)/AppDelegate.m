@@ -26,8 +26,9 @@
     
     AIFTabBarController *mainTabController = [[AIFTabBarController alloc]init];
     self.window.rootViewController = mainTabController;
-
     
+    double test = 1.0 * 4 / 7;
+    NSLog(@"%.2f",test);
     return YES;
 }
 
