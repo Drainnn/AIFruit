@@ -12,6 +12,7 @@
 #import "MJExtension.h"
 #import "FruitList.h"
 #import "FruitInfoTableViewCell.h"
+#import "detailViewController.h"
 
 @interface SearchListTableViewController ()
 
@@ -31,17 +32,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.tintColor = themeColor;
     
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.tableView.backgroundColor = BGC_SEARCHTABLEVIEW;
     
-    
+    [self sendRequest];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self sendRequest];
+    
     [super viewWillAppear:animated];
 }
 
@@ -51,7 +53,7 @@
 }
 
 -(void)sendRequest{
-    NSLog(@"%@",self.keyword);
+
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *para = @{
                            @"keyword" : self.keyword
@@ -66,7 +68,7 @@
             if (arr.count > 0) {
                 
                 for (NSDictionary *dic in arr) {
-                    FruitList *list = [FruitList objectWithKeyValues:dic];
+                    FruitList *list = [FruitList objectWithKeyValues:dic    ];
                     [self.dataArr addObject:list];
                 }
                 
@@ -112,11 +114,8 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"FruitInfoTableViewCell" owner:nil options:nil] firstObject];
         }
-        
-        
         FruitList *list = [self.dataArr objectAtIndex:indexPath.row];
         [cell setupCellWithFruitList:list];
-        
         return cell;
     }
     else{
@@ -126,8 +125,12 @@
     
 }
 
-
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    detailViewController *detailVC = [detailViewController new];
+    FruitList *list = [self.dataArr objectAtIndex:indexPath.row];
+    detailVC.id = list.id;
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
 
 
 @end

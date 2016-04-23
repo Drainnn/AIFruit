@@ -12,6 +12,27 @@
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
+#define APPDELEGATE ((AppDelegate*)[[UIApplication sharedApplication] delegate])
+
+//#define searchHistoryKey [NSString stringWithFormat:@"search_record&%ld",APPDELEGATE.searchRecordDict.count+1]
+#define searchHistoryKey @"recordKey"
+
+//购物车记录字典数量key
+#define shopCar_Fruit_Num_Key @"fruit_num"
+//购物车记录字典ID key
+#define shopCar_Fruit_Id_Key @"fruit_id"
+//购物车记录字典图片key
+#define shopCar_Fruit_Img_Key @"fruit_img"
+//购物车记录字典水果名key
+#define shopCar_Fruit_Name_Key @"fruit_name"
+//购物车记录字典单价key
+#define shopCar_Fruit_Price_Key @"fruit_price"
+
+//通知name
+#define numChangeFromFruitList @"numChangeFromFruitList"
+#define numChangeFromBtn @"numChangeFromBtn"
+#define numChangeFromDetail @"numChangeFromDetail"
+
 //导航栏高度
 #define navigation_height 64
 //屏幕宽度
@@ -49,7 +70,7 @@
 
 
 //字体大小
-#define UIFontWithSize(s) [UIFont fontWithName:@"Arial" size:s];
+#define UIFontWithSize(s) [UIFont fontWithName:@"Arial" size:s]
 
 //请求图片url前缀
 #define categoryImgUrlPrefix @"http://ai-fruit-resources.oss-cn-shanghai.aliyuncs.com/CategoryImages/"
@@ -73,7 +94,8 @@
 /*
  *搜索接口
  */
-#define SearchFruitByKeywordURL @"http://localhost:8080/ai-fruit-web/Search/SearchFruitByKeyword"
+//#define SearchFruitByKeywordURL @"http://localhost:8080/ai-fruit-web/Search/SearchFruitByKeyword"
+#define SearchFruitByKeywordURL @"http://aifruit.applinzi.com/Search/SearchFruitByKeyword"
 
 /*
  *详情接口

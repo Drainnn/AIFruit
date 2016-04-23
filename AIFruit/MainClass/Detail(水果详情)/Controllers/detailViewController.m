@@ -16,16 +16,26 @@
 #import "MJExtension.h"
 #import "detailFruit.h"
 #import "fruitCommentController.h"
+#import "detailShopCarView.h"
+#import "ThrowLineTool.h"
+#import "AppDelegate.h"
+#import "NSMutableDictionary+shopCarDictionary.h"
 #define bg_Height 260
 
-@interface detailViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
-
+@interface detailViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,detailShopCarViewDelegate,ThrowLineToolDelegate>{
+    
+    int fruitnum;
+}
 @property (nonatomic, strong) UIImageView *bgView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UITableView *dataTableView;
 @property (nonatomic, strong) UIScrollView *imgScrollView;
 @property (nonatomic, copy) NSArray *imgArr;
 @property (nonatomic, strong) detailFruit *fruit;
+@property (nonatomic, strong) detailShopCarView *detailShopCar;
+@property (nonatomic, strong) ThrowLineTool *throwTool;
+@property (nonatomic, strong) UIImageView *redView;
+
 @end
 
 @implementation detailViewController{
@@ -92,11 +102,39 @@
     return _dataTableView;
 }
 
+-(detailShopCarView *)detailShopCar{
+    if (!_detailShopCar) {
+
+        _detailShopCar = [[detailShopCarView alloc]initWithFrame:CGRectMake(self_screen_width-70, self_screen_height-120, 50, 50)];
+        _detailShopCar.delegate = self;
+    }
+    return _detailShopCar;
+}
+
+-(ThrowLineTool*)throwTool{
+    if (!_throwTool) {
+        _throwTool = [ThrowLineTool sharedTool];
+    }
+    return _throwTool;
+}
+
+-(UIImageView *)redView{
+    if (!_redView) {
+        _redView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        _redView.image = [UIImage imageNamed:@"adddetail"];
+        _redView.layer.cornerRadius = 10;
+    }
+    return _redView;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    fruitnum = 1;
     [self setupTableView];
     [self setupPageControl];
+    [self setupShopCarView];
     [self sendRequest];
 }
 
@@ -169,6 +207,11 @@
     [self setupScrollViewWithArray:self.imgArr];
 }
 
+-(void)setupShopCarView{
+    [self.view addSubview:self.detailShopCar];
+    [self.view bringSubviewToFront:self.detailShopCar];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -201,6 +244,11 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"detailoneCell" owner:nil options:nil] firstObject];
         }
+        __weak detailViewController *weakSelf = self;
+        cell.changefruitnum = ^(int num){
+            [weakSelf changefruitName:num];
+        };
+        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setupCellWithFruit:self.fruit];
         return cell;
@@ -285,6 +333,58 @@
     }
 }
 
+#pragma mark - cell改变商品数量按钮相应的回调
+-(void)changefruitName:(int)num{
+    fruitnum = num;
+}
+
+
+#pragma mark - 点击添加购物车视图按钮的代理事件
+-(void)didClickShopCar{
+    CGRect parentRectB = CGRectMake(1.0*320/5*3, self_screen_height-self_tabbar_height, 1.0*320/5, self_tabbar_height);
+    [self.view addSubview:self.redView];
+    
+    
+    //当前数组里是否存在的标志
+    int isExist = 0;
+    for (NSMutableDictionary *dict in APPDELEGATE.shopCarArray) {
+        if ([[dict valueForKey:shopCar_Fruit_Id_Key] isEqualToString:[NSString stringWithFormat:@"%d",self.id]]) {
+            int num = [[dict valueForKey:shopCar_Fruit_Num_Key]intValue];
+            num += fruitnum;
+            [dict setObject:[NSString stringWithFormat:@"%d",num] forKey:shopCar_Fruit_Num_Key];
+            [APPDELEGATE.shopCarArray writeToFile:APPDELEGATE.shopCarFilePath atomically:YES];
+            //修改总价
+            APPDELEGATE.mainTabController.totalPrice += ([dict[shopCar_Fruit_Price_Key]intValue]*fruitnum);
+            isExist = 1;
+            break;
+        }
+    }
+    if (!isExist) {
+        NSMutableDictionary *dict = [NSMutableDictionary setDictByObj:self.fruit WithNum:fruitnum];
+        [APPDELEGATE.shopCarArray addObject:dict];
+        [APPDELEGATE.shopCarArray writeToFile:APPDELEGATE.shopCarFilePath atomically:YES];
+        //修改总价
+        APPDELEGATE.mainTabController.totalPrice += ([dict[shopCar_Fruit_Price_Key]intValue]*fruitnum);
+    }
+    //更改总数量
+    APPDELEGATE.mainTabController.totalNum += fruitnum;
+    
+    //发送通知
+    NSNotification *notice = [NSNotification notificationWithName:numChangeFromDetail object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter]postNotification:notice];
+    [self.throwTool throwObject:self.redView from:self.detailShopCar.frame.origin to:parentRectB.origin type:2];
+    self.throwTool.delegate = self;
+}
+
+-(void)animationDidFinish{
+    APPDELEGATE.mainTabController.badgeView.badgeValue = APPDELEGATE.mainTabController.totalNum;
+    [self.redView removeFromSuperview];
+    CGRect rect = self.redView.frame;
+    rect.size.width += 10;
+    rect.size.height += 10;
+    self.redView.frame = rect;
+}
+
 
 #pragma mark - 返回一张纯色图片
 /** 返回一张纯色图片 */
@@ -311,5 +411,6 @@
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:nil];
 }
+
 
 @end

@@ -15,11 +15,13 @@
 #import "FruitList.h"
 #import "MJExtension.h"
 #import "detailViewController.h"
-#import "OtherViewController.h"
+#import "ThrowLineTool.h"
+#import "AppDelegate.h"
+#import "NSMutableDictionary+shopCarDictionary.h"
 
 #define btn_height 45
 
-@interface FruitListViewController ()<UITableViewDataSource,UITableViewDelegate,categorySegmentDelegate>{
+@interface FruitListViewController ()<UITableViewDataSource,UITableViewDelegate,categorySegmentDelegate,ThrowLineToolDelegate>{
     BOOL clicked;
     NSInteger currentIndex;
 }
@@ -32,6 +34,8 @@
 @property (nonatomic,strong) categorySegment *segmentControl;
 
 @property (nonatomic, strong) UIView *bgView;
+
+@property (nonatomic, strong) UIImageView *redView;
 
 @end
 
@@ -59,6 +63,15 @@
         [_bgView setAlpha:0.3];
     }
     return _bgView;
+}
+
+-(UIImageView *)redView{
+    if (!_redView) {
+        _redView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+        _redView.image = [UIImage imageNamed:@"adddetail"];
+        _redView.layer.cornerRadius = 10;
+    }
+    return _redView;
 }
 
 - (void)viewDidLoad {
@@ -223,7 +236,12 @@
          if (!cell) {
              cell = [[[NSBundle mainBundle] loadNibNamed:@"FruitInfoTableViewCell" owner:nil options:nil] firstObject];
          }
-         
+   
+        __weak FruitListViewController *weakSelf = self;
+        __weak FruitInfoTableViewCell *weakCell = cell;
+        cell.toShopCar = ^(){
+            [weakSelf didFruitToShopCar:weakCell];
+        };
          FruitList *list = [self.dataArr objectAtIndex:indexPath.row];
          [cell setupCellWithFruitList:list];
          cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -242,6 +260,41 @@
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
+-(void)didFruitToShopCar:(FruitInfoTableViewCell *)cell{
+    CGRect parentRectA = [cell convertRect:cell.FrultImgView.frame toView:self.view];
+    CGRect parentRectB = CGRectMake(1.0*320/5*3, self_screen_height-self_tabbar_height, 1.0*320/5, self_tabbar_height);
+    [self.view addSubview:self.redView];
+    
+    //当前数组里是否存在的标志
+    int isExist = 0;
+    for (NSMutableDictionary *dict in APPDELEGATE.shopCarArray) {
+        if ([[dict valueForKey:shopCar_Fruit_Id_Key] isEqualToString:[NSString stringWithFormat:@"%d",cell.fruitList.id]]) {
+            int num = [[dict valueForKey:shopCar_Fruit_Num_Key]intValue];
+            num ++;
+            [dict setObject:[NSString stringWithFormat:@"%d",num] forKey:shopCar_Fruit_Num_Key];
+            [APPDELEGATE.shopCarArray writeToFile:APPDELEGATE.shopCarFilePath atomically:YES];
+            //修改总价
+            APPDELEGATE.mainTabController.totalPrice += [dict[shopCar_Fruit_Price_Key]intValue];
+            isExist = 1;
+            break;
+        }
+    }
+    if (!isExist) {
+        NSMutableDictionary *dict = [NSMutableDictionary setDictByObj:cell WithNum:1];
+        [APPDELEGATE.shopCarArray addObject:dict];
+        [APPDELEGATE.shopCarArray writeToFile:APPDELEGATE.shopCarFilePath atomically:YES];
+        //修改总价
+        APPDELEGATE.mainTabController.totalPrice += [dict[shopCar_Fruit_Price_Key]intValue];
+    }
+    //更改总数量+1
+    APPDELEGATE.mainTabController.totalNum++;
+    //发送通知
+    NSNotification *notice = [NSNotification notificationWithName:numChangeFromFruitList object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter]postNotification:notice];
+    
+    [[ThrowLineTool sharedTool] throwObject:self.redView from:parentRectA.origin to:parentRectB.origin type:1];
+    [ThrowLineTool sharedTool].delegate = self;
+}
 
 
 - (void)didReceiveMemoryWarning {
@@ -250,5 +303,14 @@
 }
 
 
+//加入购物车的动画停止后的回调
+-(void)animationDidFinish{
+    APPDELEGATE.mainTabController.badgeView.badgeValue = APPDELEGATE.mainTabController.totalNum;
+    [self.redView removeFromSuperview];
+    CGRect rect = self.redView.frame;
+    rect.size.width -= 100;
+    rect.size.height -= 100;
+    self.redView.frame = rect;
+}
 
 @end

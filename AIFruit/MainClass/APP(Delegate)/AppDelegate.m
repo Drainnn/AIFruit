@@ -7,16 +7,26 @@
 //
 
 #import "AppDelegate.h"
-#import "AIFTabBarController.h"
+
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
 
 @interface AppDelegate ()
 
+
 @end
+
+
 
 @implementation AppDelegate
 
+
+//-(AIFTabBarController *)mainTabController{
+//    if (_mainTabController) {
+//        _mainTabController = [[AIFTabBarController alloc]init];
+//    }
+//    return _mainTabController;
+//}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
@@ -24,11 +34,14 @@
     CGRect rect = [[UIScreen mainScreen]bounds];
     self.window = [[UIWindow alloc]initWithFrame:rect];
     
-    AIFTabBarController *mainTabController = [[AIFTabBarController alloc]init];
-    self.window.rootViewController = mainTabController;
+    [self loadSearchRecordFromFilePath];
+    [self loadshopCarFromFilePath];
     
-    double test = 1.0 * 4 / 7;
-    NSLog(@"%.2f",test);
+    self.mainTabController = [[AIFTabBarController alloc]init];
+    self.window.rootViewController = self.mainTabController;
+    
+    
+    
     return YES;
 }
 
@@ -61,17 +74,35 @@
     NSArray *doucumentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *DocumentPath = [doucumentPaths objectAtIndex:0];
     _searchRecordFilePath = [NSString stringWithFormat:@"%@/record.plist",DocumentPath];
-    NSLog(@"document:%@",DocumentPath);
     
     //判断文件路径是否存在
     NSFileManager *mangager = [NSFileManager defaultManager];
     if ([mangager fileExistsAtPath:_searchRecordFilePath]) {
-        _searchRecordDict = [NSMutableDictionary dictionaryWithContentsOfFile:_searchRecordFilePath];
+        _searchRecordArray = [NSMutableArray arrayWithContentsOfFile:_searchRecordFilePath];
     }
     else{
-        _searchRecordDict = [NSMutableDictionary dictionary];
+        _searchRecordArray = [NSMutableArray array];
     }
 }
+
+#pragma mark - 读取购物车记录
+-(void)loadshopCarFromFilePath
+{
+    //获取文件路径
+    NSArray *doucumentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *DocumentPath = [doucumentPaths objectAtIndex:0];
+    _shopCarFilePath = [NSString stringWithFormat:@"%@/shopCar.plist",DocumentPath];
+    NSLog(@"%@",DocumentPath);
+    //判断文件路径是否存在
+    NSFileManager *mangager = [NSFileManager defaultManager];
+    if ([mangager fileExistsAtPath:_shopCarFilePath]) {
+        _shopCarArray = [NSMutableArray arrayWithContentsOfFile:_shopCarFilePath];
+    }
+    else{
+        _shopCarArray = [NSMutableArray array];
+    }
+}
+
 
 
 -(NSString *)SetFilePath{

@@ -11,12 +11,15 @@
 #import "SearchHistoryCell.h"
 #import "HotRecommendViewCell.h"
 #import "SearchListTableViewController.h"
+#import "clearSearchCell.h"
+#import "AppDelegate.h"
 
 @interface SearchTableViewController ()<UISearchBarDelegate,UITextFieldDelegate>
 {
     int InputNum;//搜索框输入字数
     NSString *Inputkeyword;//搜索关键词
     int TapNum;//单击次数
+    int oldSearchItem;//上一次的搜索记录条数
 }
 
 @property (nonatomic, strong) UIView *TitleSearchView;//搜索背景view(覆盖在titleView上)
@@ -26,15 +29,43 @@
 @property (nonatomic, strong) UIButton *cancelBtn;//取消按钮
 @property (nonatomic, strong) UITextField *searchField;//搜索框
 @property (nonatomic, strong) UITapGestureRecognizer *singleRecognizer;
+
+@property (nonatomic, strong) AppDelegate *appdelegate;
+
+@property (nonatomic, strong) NSMutableArray *searchArray;
+
 @end
 
 @implementation SearchTableViewController
+
+-(AppDelegate *)appdelegate{
+    if (!_appdelegate) {
+        _appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    }
+    return _appdelegate;
+}
+
+-(NSMutableArray *)searchArray{
+    if (!_searchArray) {
+        _searchArray = [NSMutableArray array];
+        if (APPDELEGATE.searchRecordArray.count > 0) {
+            for (NSDictionary *dic in [APPDELEGATE.searchRecordArray reverseObjectEnumerator]) {
+                [_searchArray addObject:dic];
+            }
+        }
+        
+    }
+    return _searchArray;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     InputNum = 1;
     TapNum = 0;
     [self addSearchView];
+    
+    oldSearchItem = (int)self.searchArray.count;
     
 //    _searchField.returnKeyType = UIReturnKeySearch;
     
@@ -45,6 +76,15 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    if ((int)self.searchArray.count > oldSearchItem) {
+        oldSearchItem = (int)self.searchArray.count;
+        [self.tableView reloadData];
+    }
+    
+}
 
 
 #pragma mark - 搜索框视图
@@ -179,8 +219,6 @@
     [_searchField setTextColor:UIColorWithRGBA(0, 137, 63, 1)];
     [_searchField addTarget:self action:@selector(TextFieldChange:) forControlEvents:UIControlEventEditingChanged];
     _searchField.returnKeyType = UIReturnKeySearch;
-//    [_searchField setPlaceholder:@"输入搜搜"];
-//    [_searchField setValue:UIColorWithRGBA(0, 137, 63, 1) forKeyPath:@"_placeholderLabel.textColor"];
     
     [view addSubview:_searchField];
 }
@@ -196,22 +234,48 @@
     }
 
     InputNum = (int)sender.text.length + 1;
-    NSLog(@"%d",InputNum);
     
 }
 
 #pragma mark - 点击键盘搜索键
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
+     SearchListTableViewController *searchListVC = [[UIStoryboard storyboardWithName:@"SearchList" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListStoryboard"];
     
     [_searchField resignFirstResponder];
     
-    SearchListTableViewController *searchListVC = [[UIStoryboard storyboardWithName:@"SearchList" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListStoryboard"];
     Inputkeyword = textField.text;
     searchListVC.keyword = Inputkeyword;
     [self ClickCancel:nil];
-//    searchListVC.navigationController.title = @"搜索结果";
+    
+    //~~~~~~~~~~~~这里的代码可以优化下~~~~~~~~~~~~
+    //搜索记录保存
+    if (APPDELEGATE.searchRecordArray.count > 0) {
+        int isNewKeyword = 1;
+        for (NSDictionary *dic in APPDELEGATE.searchRecordArray) {
+            NSString *value = dic[searchHistoryKey];
+            if ([Inputkeyword isEqualToString:value]) {
+                isNewKeyword = 0;
+                break;
+            }
+        }
+        //如果关键词不存在则保存
+        if (isNewKeyword) {
+            NSDictionary *dic = [NSDictionary dictionaryWithObject:Inputkeyword forKey:searchHistoryKey];
+            [APPDELEGATE.searchRecordArray addObject:dic];
+            [self.appdelegate.searchRecordArray writeToFile:APPDELEGATE.searchRecordFilePath atomically:YES];
+            [self.searchArray insertObject:dic atIndex:0];
+            
+        }
+     }else{
+         NSDictionary *dic = [NSDictionary dictionaryWithObject:Inputkeyword forKey:searchHistoryKey];
+         [APPDELEGATE.searchRecordArray addObject:dic];
+         [self.appdelegate.searchRecordArray writeToFile:APPDELEGATE.searchRecordFilePath atomically:YES];
+//         [self.searchArray addObject:dic];
+         [self.searchArray insertObject:dic atIndex:0];
+     }
+    
+    
     [self.navigationController pushViewController:searchListVC animated:YES];
-//
     return YES;
 }
 
@@ -229,7 +293,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 2;
+    return self.searchArray.count > 0 ? 2 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -238,7 +302,7 @@
         return 1;
     }
     else{
-        return 3;
+        return self.searchArray.count + 1;
     }
 }
 
@@ -265,7 +329,11 @@
         return 150;
     }
     else{
-        return 44;
+        if (indexPath.row < self.searchArray.count) {
+            return 44;
+        }else{
+            return 60;
+        }
     }
 }
 
@@ -283,22 +351,71 @@
         return cell;
     }
     else{
-        static NSString *identifier = @"SearchHistory";
-        SearchHistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        
-        if (!cell) {
-            cell = [[[NSBundle mainBundle]loadNibNamed:@"SearchHistoryCell" owner:nil options:nil]firstObject];
+        if (indexPath.row < self.searchArray.count) {
+            static NSString *identifier = @"SearchHistory";
+            SearchHistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            
+            if (!cell) {
+                cell = [[[NSBundle mainBundle]loadNibNamed:@"SearchHistoryCell" owner:nil options:nil]firstObject];
+            }
+            
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            NSDictionary *dic = [self.searchArray objectAtIndex:indexPath.row];
+            cell.historyLabel.text = dic[searchHistoryKey];
+            //    cell.backgroundColor = UIColorWithRGBA(243, 244, 246, 1);
+            cell.backgroundColor = [UIColor whiteColor];
+            
+            return cell;
+        }else{
+            static NSString *identifier = @"clearSearchCell";
+            clearSearchCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (!cell) {
+                cell = [[[NSBundle mainBundle]loadNibNamed:@"clearSearchCell" owner:nil options:nil]firstObject];
+            }
+            __weak SearchTableViewController *weakSelf = self;
+            cell.didclearSearchRecord = ^(){
+                [weakSelf clearSearch];
+            };
+            [cell setupCell];
+            return cell;
         }
         
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.historyLabel.text = @"历史";
-        //    cell.backgroundColor = UIColorWithRGBA(243, 244, 246, 1);
-        cell.backgroundColor = [UIColor whiteColor];
-        
-        return cell;
     }
     
 }
+
+#pragma mark - 点击cell触发事件
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        
+    }
+    else{
+        if (indexPath.row < self.searchArray.count) {
+            SearchListTableViewController *searchListVC = [[UIStoryboard storyboardWithName:@"SearchList" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListStoryboard"];
+            NSDictionary *dic = [self.searchArray objectAtIndex:indexPath.row];
+            NSString *str = dic[searchHistoryKey];
+            searchListVC.keyword = str;
+            [self.navigationController pushViewController:searchListVC animated:YES];
+        }
+    }
+}
+
+#pragma mark - 点击清除搜索记录的回调， 清除搜索记录
+-(void)clearSearch{
+    NSFileManager *manager = [NSFileManager defaultManager];
+    if ([manager fileExistsAtPath:APPDELEGATE.searchRecordFilePath]) {
+        [APPDELEGATE.searchRecordArray removeAllObjects];
+        [self.searchArray removeAllObjects];
+        //删除section
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadData];
+        [manager removeItemAtPath:APPDELEGATE.searchRecordFilePath error:nil];
+        //设置上一次搜索记录条数为0
+        oldSearchItem = 0;
+    }
+}
+
 
 
 

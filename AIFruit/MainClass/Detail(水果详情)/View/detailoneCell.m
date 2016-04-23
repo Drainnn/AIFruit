@@ -7,7 +7,7 @@
 //
 
 #import "detailoneCell.h"
-#import "NSString+OriginPriceString.h"
+#import "NSString+AIFruitString.h"
 
 @interface detailoneCell (){
     int num;
@@ -40,10 +40,10 @@
     
     [self.reduceBtn setTitle:@"-" forState:UIControlStateNormal];
     [self.reduceBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [self.reduceBtn addTarget:self action:@selector(action:) forControlEvents:UIControlEventTouchUpInside];
+    [self.reduceBtn addTarget:self action:@selector(reduceAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.increaseBtn setTitle:@"+" forState:UIControlStateNormal];
     [self.increaseBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [self.increaseBtn addTarget:self action:@selector(action:) forControlEvents:UIControlEventTouchUpInside];
+    [self.increaseBtn addTarget:self action:@selector(increaseAction:) forControlEvents:UIControlEventTouchUpInside];
     self.numLabel.textAlignment = NSTextAlignmentCenter;
     num = 1;
     self.numLabel.text = [NSString stringWithFormat:@"%d",num];
@@ -54,8 +54,17 @@
     self.bgLabel.layer.borderColor = [[UIColor grayColor]CGColor];
 }
 
--(void)action:(id)sender{
+-(void)reduceAction:(id)sender{
+    if (num > 1) {
+        num --;
+    }
+    _changefruitnum(num);
+    self.numLabel.text = [NSString stringWithFormat:@"%d",num];
+}
+
+-(void)increaseAction:(id)sender{
     num ++;
+    _changefruitnum(num);
     self.numLabel.text = [NSString stringWithFormat:@"%d",num];
 }
 

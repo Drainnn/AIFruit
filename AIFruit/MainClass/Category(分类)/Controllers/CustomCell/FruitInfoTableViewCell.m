@@ -8,7 +8,8 @@
 
 #import "FruitInfoTableViewCell.h"
 #import "UIImageView+WebCache.h"
-#import "NSString+OriginPriceString.h"
+#import "NSString+AIFruitString.h"
+#import "NSURL+AIFruitURL.h"
 
 @implementation FruitInfoTableViewCell
 
@@ -26,14 +27,14 @@
 //设置cell内容
 -(void)setupCellWithFruitList:(FruitList *)list{
     
+    self.fruitList = list;
+    
     //图片
-    NSString *imgStr = [NSString stringWithFormat:@"%@/%@/%@",mainImgUrlPrefix,[NSString stringWithFormat:@"%d",list.id],list.mainImgUrl];
-    NSURL *url = [[NSURL alloc]initWithString:[imgStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    [self.FrultImgView sd_setImageWithURL:url placeholderImage:nil];
-    CALayer * layer = [self.FrultImgView layer];
-    [layer setCornerRadius:5.0];
-    layer.borderColor = [UIColorWithRGBA(233, 234, 237, 1.0f) CGColor];
-    layer.borderWidth = 0.5f;
+    [self.FrultImgView sd_setImageWithURL:[NSURL getImgURLWithId:list.id andmainImgUrl:list.mainImgUrl] placeholderImage:nil];
+    self.FrultImgView.layer.cornerRadius = 5.0;
+    self.FrultImgView.layer.borderColor = [UIColorWithRGBA(233, 234, 237, 1.0f) CGColor];
+    self.FrultImgView.layer.borderWidth = 0.5f;
+    
     //水果名
     self.FruitNameLabel.text = list.fruitName;
     
@@ -52,7 +53,18 @@
     self.PrivilegePriceLabel.attributedText = privilAttStr;
     //销售数量
     self.saleNumLabel.text = [NSString stringWithFormat:@"已售：%d",list.saleNum];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    //添加购物车按钮
+//    [self.toCarBtn setTitle:@"你好" forState:UIControlStateNormal];
+//    [self.toCarBtn setImage:[UIImage imageNamed:@"shopCar"] forState:UIControlStateNormal];
+    
+    [self.toCarBtn addTarget:self action:@selector(action:) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+
+-(void)action:(UIButton *)btn{
+    _toShopCar();
 }
 
 - (void)drawRect:(CGRect)rect

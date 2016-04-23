@@ -10,4 +10,6 @@
 
 @interface SearchTableViewController : UITableViewController
 
+//@property (nonatomic, copy)
+
 @end

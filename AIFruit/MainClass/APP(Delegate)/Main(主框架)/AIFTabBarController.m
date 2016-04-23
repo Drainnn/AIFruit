@@ -9,6 +9,7 @@
 #import "AIFTabBarController.h"
 #import "HomeTableViewController.h"
 #import "CategoryTableViewController.h"
+#import "AppDelegate.h"
 
 
 @interface AIFTabBarController ()
@@ -26,6 +27,15 @@
     }
     return _tabBarItems;
 }
+
+-(BadgeView *)badgeView{
+    if (!_badgeView) {
+        _badgeView = [[BadgeView alloc]initWithFrame:CGRectMake(self_screen_width*1.0/5*3+45, self_screen_height-44, 18, 18) WithString:@"0"];
+        [self.view addSubview:_badgeView];
+    }
+    return _badgeView;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -46,6 +56,7 @@
     //添加购物车
     UIViewController *shoppingCarVC = [[UIStoryboard storyboardWithName:@"shoppingCarStoryboard" bundle:nil]instantiateInitialViewController];
     [self addOneChildController:shoppingCarVC normalImage:[UIImage imageNamed:@"nav_cart"] pressImage:[UIImage imageNamed:@"nav_cart_active"] navigationBarTitle:@"购物车"];
+    
     
     //添加我的页面
     UIViewController *mineVC = [[UIStoryboard storyboardWithName:@"MineController" bundle:nil] instantiateInitialViewController];
@@ -70,18 +81,38 @@
     UITabBarItem *item = [UITabBarItem appearance];
     [item setTitleTextAttributes:selectedAtrrs forState:UIControlStateSelected];
     
+    [self initBadgeViewNum];
 
 }
+
+#pragma mark - 初始化购物车信息的值，数量，总价
+-(void)initBadgeViewNum{
+    self.totalNum = 0;
+    self.totalPrice = 0;
+    for (NSMutableDictionary *dic in APPDELEGATE.shopCarArray) {
+        int num = [[dic valueForKey:shopCar_Fruit_Num_Key] intValue];
+        int price = [[dic valueForKey:shopCar_Fruit_Price_Key]intValue];
+        self.totalNum += num;
+        self.totalPrice += num*price;
+    }
+    self.badgeView.badgeValue = self.totalNum;
+}
+
 
 - (void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
     
-    
-    
 }
 
-
+/**
+ *  添加单个控制器
+ *
+ *  @param viewController 子控制器视图
+ *  @param normalImage    正常图标
+ *  @param pressImage     单击图标
+ *  @param title          标题
+ */
 - (void)addOneChildController:(UIViewController *)viewController normalImage:(UIImage *)normalImage
                    pressImage:(UIImage *)pressImage
                   navigationBarTitle:(NSString *)title{
@@ -95,12 +126,11 @@
 }
 
 
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 
 
