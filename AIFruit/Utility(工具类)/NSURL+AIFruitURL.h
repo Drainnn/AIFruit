@@ -10,6 +10,6 @@
 
 @interface NSURL (AIFruitURL)
 
-+(NSURL *)getImgURLWithId:(int)id andmainImgUrl:(NSString *)imgUrl;
++(NSURL *)getMainImgURLWithId:(int)id andmainImgUrl:(NSString *)imgUrl;
 
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AIFTabBarController.h"
+#import "UserInfo.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -20,6 +21,12 @@
 @property (strong, nonatomic) NSString *shopCarFilePath;//记录购物车的文件
 
 @property (nonatomic, strong) AIFTabBarController *mainTabController;
+
+@property (nonatomic, assign) int isLogin;//用户是否登录
+@property (nonatomic, strong) NSDictionary *userInfoDict;//用户信息
+@property (nonatomic, copy) NSString *userInfoFilePath;//用户信息保存的文件
+@property (nonatomic, strong) UserInfo *userinfo;
+
 
 @end
 

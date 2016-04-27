@@ -36,6 +36,7 @@
     
     [self loadSearchRecordFromFilePath];
     [self loadshopCarFromFilePath];
+    [self loaduserInfoFromFilePath];
     
     self.mainTabController = [[AIFTabBarController alloc]init];
     self.window.rootViewController = self.mainTabController;
@@ -100,6 +101,30 @@
     }
     else{
         _shopCarArray = [NSMutableArray array];
+    }
+}
+
+#pragma mark - 读取用户信息
+-(void)loaduserInfoFromFilePath
+{
+    //获取文件路径
+    NSArray *doucumentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *DocumentPath = [doucumentPaths objectAtIndex:0];
+    _userInfoFilePath = [NSString stringWithFormat:@"%@/userinfo.plist",DocumentPath];
+    
+    //判断文件路径是否存在
+    NSFileManager *mangager = [NSFileManager defaultManager];
+    if ([mangager fileExistsAtPath:_userInfoFilePath]) {
+        _userInfoDict = [NSDictionary dictionaryWithContentsOfFile:_userInfoFilePath];
+        _isLogin = 1;
+        NSData *data = [[NSData alloc]initWithContentsOfFile:_userInfoFilePath];
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc]initForReadingWithData:data];
+        _userinfo = [unarchiver decodeObjectForKey:@"user"];
+    }
+    else{
+        
+        _userInfoDict = [NSDictionary dictionary];
+        _isLogin = 0;
     }
 }
 

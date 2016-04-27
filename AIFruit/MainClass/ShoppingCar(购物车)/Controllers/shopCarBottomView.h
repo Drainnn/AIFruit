@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^ToOrderVC)();
+
 @interface shopCarBottomView : UIView
 
 @property (nonatomic, strong) UILabel *l1;
@@ -17,5 +19,7 @@
 @property (nonatomic, strong) UIButton *btn;
 
 -(instancetype)initWithFrame:(CGRect)frame;
+
+@property (nonatomic, copy) ToOrderVC toOrderVC;
 
 @end

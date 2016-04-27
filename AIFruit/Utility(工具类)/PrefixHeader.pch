@@ -32,6 +32,7 @@
 #define numChangeFromFruitList @"numChangeFromFruitList"
 #define numChangeFromBtn @"numChangeFromBtn"
 #define numChangeFromDetail @"numChangeFromDetail"
+#define loginSuccessNotification @"loginSuccessNotification"
 
 //导航栏高度
 #define navigation_height 64
@@ -107,6 +108,11 @@
  */
 #define FruitCommentById @"http://aifruit.applinzi.com/comment/queryCommentById"
 
+
+/*
+ *登录接口
+ */
+#define doLoginUrl @"http://aifruit.applinzi.com/login/doLogin"
 
 #endif /* PrefixHeader_pch */
 

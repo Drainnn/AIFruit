@@ -5,36 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
-        <!--我的-->
-        <scene sceneID="6pC-8U-PZQ">
-            <objects>
-                <tableViewController storyboardIdentifier="Minestoryboard" id="tt1-hz-UQ3" customClass="MineTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="bHb-30-Evk">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="CXQ-yo-Y9f">
-                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CXQ-yo-Y9f" id="tXv-l3-axu">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="tt1-hz-UQ3" id="ek9-J6-2jV"/>
-                            <outlet property="delegate" destination="tt1-hz-UQ3" id="D2i-aN-4vN"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="我的" id="xQr-G1-re7"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="41k-hV-fbK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="164" y="281"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="ULA-ih-0Sv">
             <objects>
@@ -45,12 +15,32 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="tt1-hz-UQ3" kind="relationship" relationship="rootViewController" id="boP-QC-9IW"/>
+                        <segue destination="Hmj-nR-c86" kind="relationship" relationship="rootViewController" id="OQl-CF-1kj"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vW6-ig-7Qu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-656" y="281"/>
+        </scene>
+        <!--我的-->
+        <scene sceneID="7JY-NI-Fmw">
+            <objects>
+                <viewController id="Hmj-nR-c86" customClass="MineController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FRA-FI-lNC"/>
+                        <viewControllerLayoutGuide type="bottom" id="6fC-YR-QEV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kRx-3Q-8Qw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="我的" id="Tuc-ph-OPe"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zL5-dn-Xf9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-7.5" y="281"/>
         </scene>
     </scenes>
 </document>

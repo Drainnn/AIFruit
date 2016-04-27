@@ -34,7 +34,7 @@
     //图片
     int id = [[self.dict valueForKey:shopCar_Fruit_Id_Key]intValue];
     NSString *imgUrl = [self.dict valueForKey:shopCar_Fruit_Img_Key];
-    [self.imgView sd_setImageWithURL:[NSURL getImgURLWithId:id andmainImgUrl:imgUrl] placeholderImage:nil];
+    [self.imgView sd_setImageWithURL:[NSURL getMainImgURLWithId:id andmainImgUrl:imgUrl] placeholderImage:nil];
     
     self.reduceBtn.layer.cornerRadius = 13;
     self.reduceBtn.layer.borderWidth = 1.0;

@@ -41,7 +41,7 @@
     NSString *imgStr = [NSString stringWithFormat:@"%@%@",categoryImgUrlPrefix,list.iconName];
     NSURL *url = [[NSURL alloc]initWithString:[imgStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [_categoryImgView sd_setImageWithURL:url placeholderImage:nil];
-    
+
 }
 
 @end

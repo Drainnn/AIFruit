@@ -41,12 +41,6 @@ static ThrowLineTool *s_sharedInstance = nil;
         [path addCurveToPoint:CGPointMake(end.x+40, end.y+40)
                 controlPoint1:CGPointMake(start.x, start.y)
                 controlPoint2:CGPointMake(start.x - 50, start.y - 10)];
-            [UIView animateWithDuration:0.5 animations:^{
-                CGRect rect = obj.frame;
-                rect.size.width -= 10;
-                rect.size.height -= 10;
-                obj.frame = rect;
-            }];
     }
     
 //    [UIView animateWithDuration:0.5 animations:^{

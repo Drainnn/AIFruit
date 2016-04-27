@@ -13,9 +13,6 @@
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-//        
-//        CGFloat width = frame.size.width;
-//        CGFloat height = frame.size.height;
         
         UILabel *l1 = [[UILabel alloc]initWithFrame:CGRectMake(13, 8, 30, 21)];
         _l1 = l1;
@@ -38,13 +35,16 @@
         _l4 = l4;
         l4.text = [NSString stringWithFormat:@"￥%d",APPDELEGATE.mainTabController.totalPrice];
         [l4 setFont:UIFontWithSize(14)];
+        [l4 setTextColor:fruit_red];
         
         UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(198, 8, 114, 43)];
-        _btn = btn;
+
         [btn setTitle:@"去结算" forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [btn setBackgroundColor:UIColorWithRGB(255, 107, 107)];
         btn.layer.cornerRadius = 5.0f;
+        [btn addTarget:self action:@selector(action:) forControlEvents:UIControlEventTouchUpInside];
+        _btn = btn;
         
         [self addSubview:_l1];
         [self addSubview:_l2];
@@ -56,27 +56,22 @@
         self.backgroundColor = [UIColor whiteColor];
         
         //接收通知
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeNumFromBtn:) name:numChangeFromBtn object:nil];
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeNumFromFruitList:) name:numChangeFromFruitList object:nil];
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeNumFromDetail:) name:numChangeFromDetail object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeNum:) name:numChangeFromBtn object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeNum:) name:numChangeFromFruitList object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeNum:) name:numChangeFromDetail object:nil];
     }
     return self;
 }
 
--(void)changeNumFromBtn:(NSNotification *)notification{
-    NSDictionary *dict = notification.userInfo;
-    _l2.text = [dict valueForKey:@"totalNum"];
-    _l4.text = [dict valueForKey:@"totalPrice"];
-}
-
--(void)changeNumFromFruitList:(NSNotification *)notification{
+#pragma mark - 接收到通知后的事件
+-(void)changeNum:(NSNotification *)notification{
     _l2.text = [NSString stringWithFormat:@"%d",APPDELEGATE.mainTabController.totalNum];
     _l4.text = [NSString stringWithFormat:@"￥%d",APPDELEGATE.mainTabController.totalPrice];
 }
 
--(void)changeNumFromDetail:(NSNotification *)notification{
-    _l2.text = [NSString stringWithFormat:@"%d",APPDELEGATE.mainTabController.totalNum];
-    _l4.text = [NSString stringWithFormat:@"￥%d",APPDELEGATE.mainTabController.totalPrice];
+//按钮事件
+-(void)action:(UIButton *)btn{
+    _toOrderVC();
 }
 
 -(void)dealloc{

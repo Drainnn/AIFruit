@@ -10,7 +10,7 @@
 
 @implementation NSURL (AIFruitURL)
 
-+(NSURL *)getImgURLWithId:(int)id andmainImgUrl:(NSString *)imgUrl{
++(NSURL *)getMainImgURLWithId:(int)id andmainImgUrl:(NSString *)imgUrl{
     NSString *imgStr = [NSString stringWithFormat:@"%@/%@/%@",mainImgUrlPrefix,[NSString stringWithFormat:@"%d",id],imgUrl];
     NSURL *url = [[NSURL alloc]initWithString:[imgStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     return url;

@@ -307,10 +307,6 @@
 -(void)animationDidFinish{
     APPDELEGATE.mainTabController.badgeView.badgeValue = APPDELEGATE.mainTabController.totalNum;
     [self.redView removeFromSuperview];
-    CGRect rect = self.redView.frame;
-    rect.size.width -= 100;
-    rect.size.height -= 100;
-    self.redView.frame = rect;
 }
 
 @end

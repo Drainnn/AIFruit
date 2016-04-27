@@ -30,7 +30,7 @@
     self.fruitList = list;
     
     //图片
-    [self.FrultImgView sd_setImageWithURL:[NSURL getImgURLWithId:list.id andmainImgUrl:list.mainImgUrl] placeholderImage:nil];
+    [self.FrultImgView sd_setImageWithURL:[NSURL getMainImgURLWithId:list.id andmainImgUrl:list.mainImgUrl] placeholderImage:nil];
     self.FrultImgView.layer.cornerRadius = 5.0;
     self.FrultImgView.layer.borderColor = [UIColorWithRGBA(233, 234, 237, 1.0f) CGColor];
     self.FrultImgView.layer.borderWidth = 0.5f;

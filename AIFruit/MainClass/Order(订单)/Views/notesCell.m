@@ -1,14 +1,14 @@
 //
-//  MineInfoViewCell.m
+//  notesCell.m
 //  AIFruit
 //
-//  Created by Kosne on 16/4/6.
+//  Created by Kosne on 16/4/24.
 //  Copyright © 2016年 Kosne. All rights reserved.
 //
 
-#import "MineInfoViewCell.h"
+#import "notesCell.h"
 
-@implementation MineInfoViewCell
+@implementation notesCell
 
 - (void)awakeFromNib {
     // Initialization code
@@ -18,6 +18,11 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+-(void)setupCell{
+    self.notesField.placeholder = @"若您对订单有特殊要求，请在此填写备注";
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 @end
