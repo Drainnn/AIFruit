@@ -37,9 +37,9 @@
     [_BtnArr addObject:_nineBtn];
     NSInteger length = _BtnArr.count;
     for (int i = 0; i < length; i++) {
-
+        
         UIButton *btn = [_BtnArr objectAtIndex:i];
-        [btn setTitle:[NSString stringWithFormat:@"%d",i] forState:UIControlStateNormal];
+//        [btn setTitle:[NSString stringWithFormat:@"%d",i] forState:UIControlStateNormal];
         [btn setBackgroundColor:UIColorWithRGBA(255, 255, 255, 1)];
         [btn.layer setBorderWidth:1.0];
         [btn.layer setBorderColor:UIColorWithRGBA(220, 225, 227, 1).CGColor];

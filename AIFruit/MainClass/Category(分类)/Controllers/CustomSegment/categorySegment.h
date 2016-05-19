@@ -20,6 +20,7 @@
 
 @property (nonatomic,weak) id <categorySegmentDelegate> delegate;
 
+-(void)changeSelectItemWithcontentOffset:(CGPoint)contentOffset;
 -(void)addTitleBtnWithTitleArray:(NSArray *)titleArr;
 -(instancetype)initWithFrame:(CGRect)frame;
 

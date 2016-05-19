@@ -20,21 +20,20 @@
 #import "ThrowLineTool.h"
 #import "AppDelegate.h"
 #import "NSMutableDictionary+shopCarDictionary.h"
-#define bg_Height 260
+#define bg_Height 264
 
 @interface detailViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,detailShopCarViewDelegate,ThrowLineToolDelegate>{
     
     int fruitnum;
 }
 @property (nonatomic, strong) UIImageView *bgView;
-@property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UITableView *dataTableView;
-@property (nonatomic, strong) UIScrollView *imgScrollView;
 @property (nonatomic, copy) NSArray *imgArr;
 @property (nonatomic, strong) detailFruit *fruit;
 @property (nonatomic, strong) detailShopCarView *detailShopCar;
 @property (nonatomic, strong) ThrowLineTool *throwTool;
 @property (nonatomic, strong) UIImageView *redView;
+
 
 @end
 
@@ -43,30 +42,12 @@
     int currentIndex;
 }
 
+
 -(detailFruit *)fruit{
     if (!_fruit) {
         _fruit = [[detailFruit alloc]init];
     }
     return _fruit;
-}
-
-
--(NSArray *)imgArr{
-    if (!_imgArr) {
-        _imgArr = @[@"JAVA.jpg",@"JAVA_1.jpg",@"JAVA_2.jpg"];
-    }
-    return _imgArr;
-}
-
--(UIScrollView *)imgScrollView{
-    if (!_imgScrollView) {
-        _imgScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self_screen_width, bg_Height)];
-        _imgScrollView.showsHorizontalScrollIndicator = NO;
-        _imgScrollView.showsVerticalScrollIndicator = NO;
-        _imgScrollView.delegate = self;
-        _imgScrollView.pagingEnabled = YES;
-    }
-    return _imgScrollView;
 }
 
 -(UIImageView *)bgView{
@@ -79,25 +60,13 @@
     return _bgView;
 }
 
--(UILabel *)titleLabel{
-    if (!_titleLabel) {
-        _titleLabel = [UILabel new];
-        _titleLabel.text = @"title";
-        _titleLabel.textColor = [UIColor whiteColor];
-        [_titleLabel sizeToFit];
-        _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.alpha = 0;
-    }
-    return _titleLabel;
-}
-
 -(UITableView *)dataTableView{
     if (!_dataTableView) {
         _dataTableView = [[UITableView alloc]initWithFrame:[UIScreen mainScreen].bounds];
         _dataTableView.delegate = self;
         _dataTableView.dataSource = self;
         _dataTableView.tableFooterView = [[UIView alloc]init];
-        _dataTableView.contentInset = UIEdgeInsetsMake(bg_Height, 0, 0, 0);
+        _dataTableView.contentInset = UIEdgeInsetsMake(bg_Height-64, 0, 0, 0);
     }
     return _dataTableView;
 }
@@ -132,11 +101,14 @@
     [super viewDidLoad];
     
     fruitnum = 1;
-    [self setupTableView];
-    [self setupPageControl];
+//    [self setupTableView];
+    [self.view addSubview:self.dataTableView];
+    [self.dataTableView addSubview:self.bgView];
     [self setupShopCarView];
     [self sendRequest];
 }
+
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [self setupNav];
@@ -176,19 +148,7 @@
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
-#pragma mark - 设置scrollView
--(void)setupScrollViewWithArray:(NSArray *)imgArray{
-    NSInteger length = imgArray.count;
-    self.imgScrollView.contentSize = CGSizeMake(length*self_screen_width, 0);
-    for (int i = 0; i < length; i++) {
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(i*self_screen_width, 0, self_screen_width, bg_Height)];
-        imageView.image = [UIImage imageNamed:imgArray[i]];
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
-        imageView.tag = 24 + i;
-        [self.imgScrollView addSubview:imageView];
-    }
-    [self.dataTableView addSubview:self.imgScrollView];
-}
+
 
 -(void)setupPageControl{
     UIPageControl *pagectl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, -60, self_screen_width, 37)];
@@ -204,7 +164,7 @@
 #pragma mark - 设置tableView
 -(void)setupTableView{
     [self.view addSubview:self.dataTableView];
-    [self setupScrollViewWithArray:self.imgArr];
+//    [self setupScrollViewWithArray:self.imgArr];
 }
 
 -(void)setupShopCarView{
@@ -306,25 +266,25 @@
         CGFloat offsetH = bg_Height + offsetY;
         
         if (offsetH < 0) {
-            CGRect frame     = self.imgScrollView.frame;
+            CGRect frame     = self.bgView.frame;
             frame.size.height = bg_Height - offsetH;
             frame.origin.y = -bg_Height + offsetH;
-            self.imgScrollView.frame = frame;
+            self.bgView.frame = frame;
             
-            for (UIView *view in [self.imgScrollView subviews]) {
-                if ([view isKindOfClass:[UIImageView class]]) {
-                    if (view.tag == currentIndex + 24) {
-                        CGRect imgFrame = view.frame;
-                        imgFrame.size.height = bg_Height - offsetH;
-                        view.frame = imgFrame;
-                    }
-                    
-                }
-            }
+//            for (UIView *view in [self.imgScrollView subviews]) {
+//                if ([view isKindOfClass:[UIImageView class]]) {
+//                    if (view.tag == currentIndex + 24) {
+//                        CGRect imgFrame = view.frame;
+//                        imgFrame.size.height = bg_Height - offsetH;
+//                        view.frame = imgFrame;
+//                    }
+//                    
+//                }
+//            }
         }
-        CGFloat alpha = offsetH / bg_Height;
+//        CGFloat alpha = offsetH / bg_Height;
         //    [self.navigationController.navigationBar setBackgroundImage:[self imageWithColor:[[UIColor whiteColor] colorWithAlphaComponent:alpha]] forBarMetrics:UIBarMetricsDefault];
-        self.titleLabel.alpha = alpha;
+//        self.titleLabel.alpha = alpha;
     }else{
         CGFloat offsetX = scrollView.contentOffset.x;
         int page = offsetX / self_screen_width;

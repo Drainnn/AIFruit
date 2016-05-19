@@ -17,11 +17,16 @@
 #import "LoginAndRegisterViewController.h"
 #import "AppDelegate.h"
 #import "loginUserHeadInfoCell.h"
-
+#import "MyAddressController.h"
+#import "UIView+AnimationView.h"
+#import "myOrderController.h"
+#import "waitPayTableController.h"
+#import "MyCommentController.h"
 
 @interface MineController ()<CLLocationManagerDelegate,UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
     CLLocationManager *location;
     int isLoginView;
+    int flag;
 }
 
 @property (nonatomic, strong) UICollectionView *dataCollectionView;
@@ -37,11 +42,14 @@ NSString *identifier = @"collectionCell";
 
 -(UITableView *)dataTableView{
     if (!_dataTableView) {
-        _dataTableView = [[UITableView alloc]initWithFrame:self.view.bounds];
+        CGRect rect = self.view.bounds;
+        rect.size.height -= 49;
+        _dataTableView = [[UITableView alloc]initWithFrame:rect];
         _dataTableView.delegate = self;
         _dataTableView.dataSource = self;
         _dataTableView.tableFooterView = [UIView new];
         _dataTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [_dataTableView setBackgroundColor:UIColorWithRGB(247, 255, 255)];
     }
     return _dataTableView;
 }
@@ -63,6 +71,7 @@ NSString *identifier = @"collectionCell";
     [super viewDidLoad];
     
     isLoginView = 0;
+    flag = 0;
     
     UIFont *font = UIFontWithSize(16);
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : themeColor,NSFontAttributeName : font}];
@@ -80,6 +89,11 @@ NSString *identifier = @"collectionCell";
     if (isLoginView) {
         [self.dataTableView reloadData];
         isLoginView = 0;
+    }
+    
+    if (flag) {
+        [UIView showNormalTabbarWithNoAnimation:self.tabBarController];
+        flag = 0;
     }
 }
 
@@ -132,6 +146,14 @@ NSString *identifier = @"collectionCell";
         if (!cell) {
             cell = [[[NSBundle mainBundle]loadNibNamed:identifier owner:nil options:nil]firstObject];
         }
+        
+//        if (cell.contentView) {
+//            NSArray *array = cell.contentView.subviews;
+//            for (UIView *view in array) {
+//                [view removeFromSuperview];
+//            }
+//        }
+//        
         [cell setupCell];
         cell.dataCollectionView.delegate = self;
         cell.dataCollectionView.dataSource = self;
@@ -170,14 +192,33 @@ NSString *identifier = @"collectionCell";
 
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 1) {
-        PersonalViewController *personalVC = [PersonalViewController new];
-        [self.navigationController pushViewController:personalVC animated:YES];
+    flag = 1;
+    [UIView hideTabbarWithAnimation:self.tabBarController];
+    if (APPDELEGATE.isLogin == 1) {
+        if (indexPath.row == 0) {
+            myOrderController *myOrderVC = [[UIStoryboard storyboardWithName:@"myOrderStoryboard" bundle:nil]instantiateInitialViewController];
+            [self.navigationController pushViewController:myOrderVC animated:YES];
+        }else if (indexPath.row == 1) {
+            PersonalViewController *personalVC = [PersonalViewController new];
+            [self.navigationController pushViewController:personalVC animated:YES];
+        }else if (indexPath.row == 2){
+            MyCommentController *myAddressVC = [MyCommentController new];
+            [self.navigationController pushViewController:myAddressVC animated:YES];
+        }else if (indexPath.row == 3){
+            MyAddressController *myAddressVC = [MyAddressController new];
+            [self.navigationController pushViewController:myAddressVC animated:YES];
+        }
+    }else{
+        [self toLoginView];
     }
+    
 }
 
 #pragma mark - 跳转登录注册页面
 -(void)toLoginView{
+    flag = 1;
+    [UIView hideTabbarWithAnimation:self.tabBarController];
+    
     LoginAndRegisterViewController *loginAndRegisterVC = [[UIStoryboard storyboardWithName:@"LoginAndRegister" bundle:nil] instantiateInitialViewController];
     [self.navigationController pushViewController:loginAndRegisterVC animated:YES];
 //    [self presentViewController:loginAndRegisterVC animated:YES completion:nil];

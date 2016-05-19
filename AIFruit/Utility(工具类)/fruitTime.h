@@ -11,6 +11,4 @@
 @interface fruitTime : NSObject
 
 
-+(NSDate *)dateWithTimestamp:(NSInteger)timeStame;
-
 @end

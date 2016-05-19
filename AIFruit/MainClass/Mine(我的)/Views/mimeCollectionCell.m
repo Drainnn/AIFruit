@@ -29,6 +29,8 @@
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     self.dataCollectionView = [[UICollectionView alloc]initWithFrame:self.bounds collectionViewLayout:flowLayout];
     self.dataCollectionView.backgroundColor = [UIColor whiteColor];
+    [self.dataCollectionView setBackgroundColor:[UIColor clearColor]];
+    [self setBackgroundColor:[UIColor clearColor]];
     [self addSubview:self.dataCollectionView];
 }
 

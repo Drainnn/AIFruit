@@ -14,6 +14,11 @@
 
 #define APPDELEGATE ((AppDelegate*)[[UIApplication sharedApplication] delegate])
 
+//SMSSDK官网公共key
+#define appkey @"12d5742138e96"
+#define app_secrect @"db07ae0f6ea1271bafb40ebaf8e11459"
+
+
 //#define searchHistoryKey [NSString stringWithFormat:@"search_record&%ld",APPDELEGATE.searchRecordDict.count+1]
 #define searchHistoryKey @"recordKey"
 
@@ -33,6 +38,7 @@
 #define numChangeFromBtn @"numChangeFromBtn"
 #define numChangeFromDetail @"numChangeFromDetail"
 #define loginSuccessNotification @"loginSuccessNotification"
+#define orderpopToshopcar @"orderpopToshopcar"
 
 //导航栏高度
 #define navigation_height 64
@@ -68,6 +74,8 @@
 
 //红色
 #define fruit_red UIColorWithRGB(245,30,39)
+//边框灰色
+#define border_color_gray UIColorWithRGB(210,215,219)
 
 
 //字体大小
@@ -106,13 +114,49 @@
 /*
  *水果评论接口
  */
+//查看商品评论
 #define FruitCommentById @"http://aifruit.applinzi.com/comment/queryCommentById"
+//查看我的评论
+#define MyCommentByUserId @"http://aifruit.applinzi.com/comment/MyComment"
 
 
 /*
  *登录接口
  */
 #define doLoginUrl @"http://aifruit.applinzi.com/login/doLogin"
+
+/*
+ *注册接口
+ */
+#define doRegisterUrl @"http://aifruit.applinzi.com/Register/doRegister"
+
+/*
+ *我的地址接口
+ */
+#define myAddressUrl @"http://aifruit.applinzi.com/address/getAddress"
+#define defaultAddressUrl @"http://aifruit.applinzi.com/address/getDefaultAddress"
+#define addNewAddressUrl @"http://aifruit.applinzi.com/address/addNewAddress"
+#define updateAddressUrl @"http://aifruit.applinzi.com/address/updateAddress"
+#define deleteAddressUrl @"http://aifruit.applinzi.com/address/deleteAddress"
+
+/*
+ *订单类接口
+ */
+//添加订单
+#define addOrderUrl @"http://aifruit.applinzi.com/order/addOrder"
+//查看未支付订单
+#define waitPayOrderUrl @"http://aifruit.applinzi.com/order/WaitPayOrder"
+//查看待评价订单
+#define waitCommentOrderUrl @"http://aifruit.applinzi.com/order/WaitCommentOrder"
+//查看已完成订单
+#define finishOrderUrl @"http://aifruit.applinzi.com/order/FinishOrder"
+//查看订单详情
+#define orderDetailUrl @"http://aifruit.applinzi.com/order/OrderDetail"
+
+/*
+ *用户信息接口
+ */
+#define verifyUserUrl @"http://aifruit.applinzi.com/user/verifyUser"
 
 #endif /* PrefixHeader_pch */
 

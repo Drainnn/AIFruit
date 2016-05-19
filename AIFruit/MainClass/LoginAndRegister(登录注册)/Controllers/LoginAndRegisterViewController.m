@@ -15,7 +15,9 @@
 #import "UserInfo.h"
 #import "MJExtension.h"
 
-@interface LoginAndRegisterViewController ()
+@interface LoginAndRegisterViewController (){
+    int flag;
+}
 
 @property (nonatomic, strong) UserInfo *userinfo;
 
@@ -33,6 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    flag = 1;
     
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.tintColor = themeColor;
@@ -80,8 +83,6 @@
             self.userinfo = info;
             
             //信息保存本地
-//            APPDELEGATE.userInfoDict = [NSDictionary dictionaryWithDictionary:dic];
-//            [APPDELEGATE.userInfoDict writeToFile:APPDELEGATE.userInfoFilePath atomically:YES];
             APPDELEGATE.userinfo = self.userinfo;
             [self saveUserInfo:self.userinfo];
 
@@ -97,6 +98,10 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"接口请求失败");
+        if (flag < 5) {
+            flag++;
+            [self sendDoLoginRequest];
+        }
     }];
 }
 

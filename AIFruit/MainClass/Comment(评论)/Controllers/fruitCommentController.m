@@ -33,13 +33,30 @@
     return _commentArr;
 }
 
+-(UITableView *)dataTableView{
+    if (!_dataTableView) {
+        CGRect rect = self.view.bounds;
+        rect.origin.y = 60;
+        rect.size.height -= 60;
+        
+        _dataTableView = [[UITableView alloc]initWithFrame:rect];
+        _dataTableView.delegate = self;
+        _dataTableView.dataSource = self;
+        _dataTableView.tableFooterView = [UIView new];
+        _dataTableView.rowHeight = 82;
+        _dataTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _dataTableView.showsVerticalScrollIndicator = NO;
+    }
+    return _dataTableView;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self sendRequest];
-    [self initTableView];
     [self initTitleView];
+    [self.view addSubview:self.dataTableView];
     [self initTopView];
     [self setWarnInfor:@"网络连接异常"];
 }
@@ -89,16 +106,9 @@
 
 #pragma mark - 初始化tableView
 -(void)initTableView{
-    CGRect rect = self.view.bounds;
-    rect.origin.y = 60;
-    _dataTableView = [[UITableView alloc]initWithFrame:rect];
-    _dataTableView.delegate = self;
-    _dataTableView.dataSource = self;
-    _dataTableView.tableFooterView = [UIView new];
-    _dataTableView.rowHeight = 82;
-    _dataTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
 //    _dataTableView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0);
-    [self.view addSubview:_dataTableView];
+//    [self.view addSubview:_dataTableView];
 }
 
 #pragma mark - 初始化topView

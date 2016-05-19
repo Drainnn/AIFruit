@@ -64,7 +64,7 @@
         [self.phoneLabel setTextColor:themeColor];
         [self.titleLabel setTextColor:[UIColor grayColor]];
         
-        [self setBackgroundColor:UIColorWithRGB(220, 242, 219)];
+        [self setBackgroundColor:UIColorWithRGB(236, 247, 243)];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         [self addSubview:self.headImgView];

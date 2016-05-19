@@ -113,7 +113,7 @@
     NSFileManager *manager = [NSFileManager defaultManager];
     if ([manager fileExistsAtPath:APPDELEGATE.userInfoFilePath]) {
         
-        [manager removeItemAtPath:APPDELEGATE.searchRecordFilePath error:nil];
+        [manager removeItemAtPath:APPDELEGATE.userInfoFilePath error:nil];
         
         APPDELEGATE.isLogin = 0;
         UserInfo *info = [[UserInfo alloc]init];

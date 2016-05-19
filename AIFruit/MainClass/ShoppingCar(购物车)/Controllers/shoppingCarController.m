@@ -13,6 +13,8 @@
 #import "shopCarBottomView.h"
 #import "orderViewController.h"
 #import "shopCarEmptyView.h"
+#import "UIView+AnimationView.h"
+#import "LoginAndRegisterViewController.h"
 
 @interface shoppingCarController ()<UITableViewDataSource,UITableViewDelegate>{
     int flag;
@@ -58,8 +60,6 @@
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : themeColor,NSFontAttributeName : font}];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     
-    
-    
     [self initTableView];
     
     if (APPDELEGATE.mainTabController.totalNum == 0) {
@@ -72,6 +72,7 @@
     NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(didNotice:) name:numChangeFromFruitList object:nil];
     [center addObserver:self selector:@selector(didNotice:) name:numChangeFromDetail object:nil];
+    [center addObserver:self selector:@selector(didNotice:) name:orderpopToshopcar object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -79,8 +80,7 @@
     
     if (flag) {
         //移动tabbar到正常位置
-        self.tabBarController.tabBar.transform = CGAffineTransformIdentity;
-        APPDELEGATE.mainTabController.badgeView.transform = CGAffineTransformIdentity;
+        [UIView showNormalTabbarWithNoAnimation:self.tabBarController];
         //重新设置flag为0;
         flag = 0;
     }
@@ -177,14 +177,22 @@
 
 #pragma mark - Push订单页面
 -(void)toOrderView{
-    [UIView animateWithDuration:0.7 animations:^{
-        self.tabBarController.tabBar.transform = CGAffineTransformMakeTranslation(0, 49);
-        APPDELEGATE.mainTabController.badgeView.transform = CGAffineTransformMakeTranslation(0, 49);
-    }];
+    [UIView hideTabbarWithAnimation:self.tabBarController];
     //标志设为1
     flag = 1;
-    orderViewController *orderVC = [[UIStoryboard storyboardWithName:@"orderView" bundle:nil]instantiateInitialViewController];
-    [self.navigationController pushViewController:orderVC animated:YES];
+    if (APPDELEGATE.isLogin) {
+        orderViewController *orderVC = [[UIStoryboard storyboardWithName:@"orderView" bundle:nil]instantiateInitialViewController];
+        [self.navigationController pushViewController:orderVC animated:YES];
+    }else{
+        LoginAndRegisterViewController *loginAndRegisterVC = [[UIStoryboard storyboardWithName:@"LoginAndRegister" bundle:nil] instantiateInitialViewController];
+        [self.navigationController pushViewController:loginAndRegisterVC animated:YES];
+        //    [self presentViewController:loginAndRegisterVC animated:YES completion:nil];
+    }
+    
+
+        [UIView hideTabbarWithAnimation:self.tabBarController];
+        
+    
 }
 
 #pragma mark - 到首页
@@ -201,6 +209,7 @@
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self name:numChangeFromFruitList object:nil];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:numChangeFromDetail object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:numChangeFromBtn object:nil];
 }
 
 

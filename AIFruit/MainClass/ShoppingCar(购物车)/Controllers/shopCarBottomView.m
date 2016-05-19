@@ -78,6 +78,7 @@
     //移除通知
     [[NSNotificationCenter defaultCenter]removeObserver:self name:numChangeFromBtn object:nil];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:numChangeFromFruitList object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:numChangeFromDetail object:nil];
 }
 
 @end

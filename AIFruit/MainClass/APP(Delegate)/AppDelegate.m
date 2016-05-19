@@ -11,6 +11,9 @@
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
 
+#import <SMS_SDK/SMSSDK.h>
+#import <SMS_SDK/Extend/SMSSDK+AddressBookMethods.h>
+
 @interface AppDelegate ()
 
 
@@ -41,6 +44,8 @@
     self.mainTabController = [[AIFTabBarController alloc]init];
     self.window.rootViewController = self.mainTabController;
     
+    [SMSSDK registerApp:appkey
+             withSecret:app_secrect];
     
     
     return YES;

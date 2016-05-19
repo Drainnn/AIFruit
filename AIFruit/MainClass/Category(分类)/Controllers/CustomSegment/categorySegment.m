@@ -77,7 +77,35 @@
         }];
         currentItem = index;
     }
-    
 }
+
+-(void)changeSelectItemWithcontentOffset:(CGPoint)contentOffset{
+    CGFloat offsetX = contentOffset.x;
+    CGFloat times = offsetX / 320;
+    [UIView animateWithDuration:0.1 animations:^{
+        btnBottom.frame = CGRectMake(times*btnWidth+20, categorySegmentHeight-2, 70, 2);
+    }];
+    NSInteger index;
+    if (offsetX == 320) {
+        index = 1;
+        [self changeBtnColor:index];
+    }else if (offsetX == 640){
+        index = 2;
+        [self changeBtnColor:index];
+    }else if (offsetX == 0){
+        index = 0;
+        [self changeBtnColor:index];
+    }
+}
+-(void)changeBtnColor:(NSInteger)index{
+    if (currentItem != index) {
+        UIButton *nbtn = [TitleBtnArray objectAtIndex:index];
+        [nbtn setTitleColor:selectColor forState:UIControlStateNormal];
+        UIButton *obtn = [TitleBtnArray objectAtIndex:currentItem];
+        [obtn setTitleColor:defaultColor forState:UIControlStateNormal];
+        currentItem = index;
+    }
+}
+
 
 @end

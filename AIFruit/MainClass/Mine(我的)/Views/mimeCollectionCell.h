@@ -12,6 +12,9 @@
 
 @property (nonatomic, strong) UICollectionView *dataCollectionView;
 
+//@property (weak, nonatomic) IBOutlet UICollectionView *dataCollectionView;
+
+
 -(void)setupCell;
 
 @end

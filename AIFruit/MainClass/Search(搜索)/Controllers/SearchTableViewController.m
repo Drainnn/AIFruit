@@ -359,7 +359,6 @@
                 cell = [[[NSBundle mainBundle]loadNibNamed:@"SearchHistoryCell" owner:nil options:nil]firstObject];
             }
             
-            
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             NSDictionary *dic = [self.searchArray objectAtIndex:indexPath.row];
             cell.historyLabel.text = dic[searchHistoryKey];
