@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^DidToAddComment)(NSMutableArray *,NSInteger);
+
 @interface waitCommentController : UIViewController
 
 @property (nonatomic, strong) UITableView *dataTableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
+@property (nonatomic, copy) DidToAddComment didtoaddcomment;
 
 @end

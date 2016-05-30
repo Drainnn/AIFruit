@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^DidToSearchList)(NSString *keyWord);
+
 @interface HotRecommendViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton *oneBtn;
@@ -34,6 +36,8 @@
 
 
 @property (nonatomic, strong) NSMutableArray *BtnArr;
+
+@property (nonatomic, copy) DidToSearchList didtosearchlist;
 
 -(void)setupCell;
 

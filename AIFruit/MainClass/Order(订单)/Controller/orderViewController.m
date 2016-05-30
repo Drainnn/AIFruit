@@ -23,7 +23,7 @@
 #import "orderpayViewController.h"
 #import "chooseReceiverController.h"
 
-@interface orderViewController ()<UITableViewDataSource,UITableViewDelegate>{
+@interface orderViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>{
     int flag;
 }
 
@@ -176,6 +176,7 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle]loadNibNamed:identifier owner:nil options:nil]firstObject];
         }
+        cell.notesField.delegate = self;
         [cell setupCell];
         return cell;
     }else if(indexPath.section == 4){
@@ -233,7 +234,7 @@
         [fruitArr addObject:dict];
     }
     NSData *data = [NSJSONSerialization dataWithJSONObject:fruitArr options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+    NSString    *str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
     [paraDic setValue:str forKey:@"lists"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -242,15 +243,14 @@
         NSDictionary *dict = (NSDictionary *)responseObject;
         NSString *code = dict[@"code"];
         if ([@"200" isEqualToString:code]) {
-            int ret = [dict[@"data"] intValue];
-            if (ret == 1) {
-                [APPDELEGATE.shopCarArray removeAllObjects];
-                [APPDELEGATE.shopCarArray writeToFile:APPDELEGATE.shopCarFilePath atomically:YES];
-                APPDELEGATE.mainTabController.totalNum = 0;
-                APPDELEGATE.mainTabController.totalPrice = 0;
-                APPDELEGATE.mainTabController.badgeView.badgeValue = APPDELEGATE.mainTabController.totalNum;
-                [self pushToOrderpayView];
-            }
+            NSString *retOrderNO = dict[@"data"];
+            [APPDELEGATE.shopCarArray removeAllObjects];
+            [APPDELEGATE.shopCarArray writeToFile:APPDELEGATE.shopCarFilePath atomically:YES];
+            APPDELEGATE.mainTabController.totalNum = 0;
+            APPDELEGATE.mainTabController.totalPrice = 0;
+            APPDELEGATE.mainTabController.badgeView.badgeValue =APPDELEGATE.mainTabController.totalNum;
+            [paraDic setValue:retOrderNO forKey:@"orderNO"];
+            [self pushToOrderpayView:paraDic];
         }else{
             NSLog(@"no");
         }
@@ -261,12 +261,16 @@
     
 }
 
--(void)pushToOrderpayView{
+-(void)pushToOrderpayView:(NSMutableDictionary *)dict{
     orderpayViewController *VC = [orderpayViewController new];
+    VC.orderDic = dict;
     [self.navigationController pushViewController:VC animated:YES];
 }
 
-
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
 
 
 - (void)didReceiveMemoryWarning {

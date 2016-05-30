@@ -89,7 +89,7 @@
                 <outlet property="threeBtn" destination="e9H-ls-laz" id="EZT-ug-tFi"/>
                 <outlet property="twoBtn" destination="CaM-K5-HdL" id="Av6-rE-WZY"/>
             </connections>
-            <point key="canvasLocation" x="429" y="281"/>
+            <point key="canvasLocation" x="413" y="244"/>
         </tableViewCell>
     </objects>
 </document>

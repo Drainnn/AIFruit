@@ -25,5 +25,6 @@
 
 
 -(instancetype)initWithFrame:(CGRect)frame;
+-(void)setupViewWithDict:(NSMutableDictionary *)dict;
 
 @end

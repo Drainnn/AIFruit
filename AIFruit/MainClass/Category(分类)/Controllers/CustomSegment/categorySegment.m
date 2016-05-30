@@ -43,7 +43,7 @@
         }
         UIFont *font = UIFontWithSize(15);
         [btn.titleLabel setFont:font];
-        [btn addTarget:self action:@selector(action:) forControlEvents:UIControlEventTouchUpInside];
+        [btn addTarget:self action:@selector(Aaction:) forControlEvents:UIControlEventTouchUpInside];
         [btn setTag:i+100];
         [self addSubview:btn];
         [TitleBtnArray addObject:btn];
@@ -58,7 +58,7 @@
     [self addSubview:btnBottom];
 }
 
--(void)action:(UIButton *)sender{
+-(void)Aaction:(UIButton *)sender{
     [self changeSelectItemWithIndex:sender.tag-100];
     if ([self.delegate respondsToSelector:@selector(didselectedTitle:)]) {
         [self.delegate didselectedTitle:sender.tag-100];

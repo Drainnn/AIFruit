@@ -14,12 +14,14 @@
 #import "AppDelegate.h"
 #import "UserInfo.h"
 #import "MJExtension.h"
+#import "MBProgressHUD.h"
 
 @interface LoginAndRegisterViewController (){
     int flag;
 }
 
 @property (nonatomic, strong) UserInfo *userinfo;
+@property (nonatomic, strong) MBProgressHUD *waitHud;
 
 @end
 
@@ -33,10 +35,23 @@
     return _userinfo;
 }
 
+-(MBProgressHUD *)waitHud{
+    if (!_waitHud) {
+        _waitHud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    }
+    return _waitHud;
+}
+
+-(void)showhud{
+    self.waitHud.mode = MBProgressHUDModeIndeterminate;
+    self.waitHud.color = [UIColor grayColor];
+    self.waitHud.margin = 10.f;
+    self.waitHud.removeFromSuperViewOnHide = YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     flag = 1;
-    
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.tintColor = themeColor;
     
@@ -67,6 +82,7 @@
 }
 
 -(void)sendDoLoginRequest{
+    [self showhud];
     NSDictionary *para = @{
                            @"mobileNo":self.phoneNumberTextField.text,
                            @"password":self.passwordTextField.text
@@ -76,6 +92,9 @@
         
         NSDictionary *dict = (NSDictionary *)responseObject;
         NSString *code = dict[@"code"];
+        
+         [self.waitHud hide:YES];
+        
         if ([@"200" isEqualToString:code]) {
             APPDELEGATE.isLogin = 1;
             NSDictionary *dic = dict[@"data"];

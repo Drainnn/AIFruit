@@ -10,6 +10,7 @@
 
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
+#import "UIImageView+WebCache.h"
 
 #import <SMS_SDK/SMSSDK.h>
 #import <SMS_SDK/Extend/SMSSDK+AddressBookMethods.h>
@@ -44,9 +45,10 @@
     self.mainTabController = [[AIFTabBarController alloc]init];
     self.window.rootViewController = self.mainTabController;
     
+    [[SDImageCache sharedImageCache] clearDisk];
+    
     [SMSSDK registerApp:appkey
              withSecret:app_secrect];
-    
     
     return YES;
 }

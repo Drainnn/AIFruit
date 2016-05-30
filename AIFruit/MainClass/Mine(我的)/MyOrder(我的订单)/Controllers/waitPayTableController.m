@@ -74,12 +74,22 @@
     Order *order = [self.dataArray objectAtIndex:indexPath.section];
     [cell setupCellWithOrder:order];
     cell.ImgScrollView.delegate = self;
+    __weak waitPayTableController *weakSelf = self;
+    cell.topayclicked = ^(){
+        NSInteger index = indexPath.section;
+        [weakSelf topayView:index];
+    };
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     Order *order = [self.dataArray objectAtIndex:indexPath.section];
     _didToOrderDetail(order);
+}
+
+-(void)topayView:(NSInteger)index{
+    Order *order = [self.dataArray objectAtIndex:index];
+    _didToPayOrder(order);
 }
 
 @end

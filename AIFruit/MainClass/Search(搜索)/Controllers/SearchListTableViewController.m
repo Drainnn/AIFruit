@@ -13,10 +13,17 @@
 #import "FruitList.h"
 #import "FruitInfoTableViewCell.h"
 #import "detailViewController.h"
+#import "MBProgressHUD.h"
 
-@interface SearchListTableViewController ()
+@interface SearchListTableViewController (){
+    int flag;
+}
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
+
+@property (nonatomic, strong) UIView *noresultView;
+
+@property (nonatomic, strong) MBProgressHUD *waitHud;
 
 @end
 
@@ -29,8 +36,27 @@
     return _dataArr;
 }
 
+-(UIView *)noresultView{
+    if (!_noresultView) {
+        _noresultView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 200, 200)];
+        _noresultView.center = self.tableView.center;
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 200, 50)];
+        label.text = [NSString stringWithFormat:@"没有搜索到“%@”",self.keyword];
+        [_noresultView addSubview:label];
+    }
+    return _noresultView;
+}
+
+-(MBProgressHUD *)waitHud{
+    if (!_waitHud) {
+        _waitHud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    }
+    return _waitHud;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    flag = 1;
     
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.tintColor = themeColor;
@@ -38,7 +64,16 @@
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.tableView.backgroundColor = BGC_SEARCHTABLEVIEW;
     
+    self.title = @"搜索结果";
     [self sendRequest];
+    [self showhud];
+}
+
+-(void)showhud{
+    self.waitHud.mode = MBProgressHUDModeIndeterminate;
+    self.waitHud.color = [UIColor grayColor];
+    self.waitHud.margin = 10.f;
+    self.waitHud.removeFromSuperViewOnHide = YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -62,6 +97,8 @@
         
         NSDictionary *dict = (NSDictionary *)responseObject;
         NSString *result = [dict valueForKey:@"code"];
+        [self.waitHud hide:YES];
+        
         if ([result isEqualToString:@"200"]) {
             NSArray *arr = [dict valueForKey:@"data"];
             
@@ -72,11 +109,12 @@
                     [self.dataArr addObject:list];
                 }
                 
+                
                 [self.tableView reloadData];
                 
             }
             else{
-                NSLog(@"null");
+                [self.tableView addSubview:self.noresultView];
             }
         }
         else{
@@ -85,6 +123,10 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求接口失败");
+        if (flag < 5) {
+            flag++;
+            [self sendRequest];
+        }
     }];
 }
 

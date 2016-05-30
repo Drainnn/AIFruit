@@ -20,10 +20,12 @@
 #import "ThrowLineTool.h"
 #import "AppDelegate.h"
 #import "NSMutableDictionary+shopCarDictionary.h"
-#define bg_Height 264
+#import "UIImageView+WebCache.h"
+#import "NSURL+AIFruitURL.h"
+#define bg_Height 320
 
 @interface detailViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,detailShopCarViewDelegate,ThrowLineToolDelegate>{
-    
+    int flag;
     int fruitnum;
 }
 @property (nonatomic, strong) UIImageView *bgView;
@@ -53,20 +55,23 @@
 -(UIImageView *)bgView{
     if (!_bgView) {
         _bgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, -bg_Height, self_screen_width, bg_Height)];
-        [_bgView setImage:[UIImage imageNamed:@"test.jpg"]];
+        [_bgView setImage:[UIImage imageNamed:@"icon.png"]];
         _bgView.contentMode = UIViewContentModeScaleAspectFill;
         
-    }
+    }       
     return _bgView;
 }
 
 -(UITableView *)dataTableView{
     if (!_dataTableView) {
-        _dataTableView = [[UITableView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+//        CGRect rect = self.view.bounds;
+//        rect.size.height -= 49;
+        _dataTableView = [[UITableView alloc]initWithFrame:self.view.bounds];
         _dataTableView.delegate = self;
         _dataTableView.dataSource = self;
         _dataTableView.tableFooterView = [[UIView alloc]init];
         _dataTableView.contentInset = UIEdgeInsetsMake(bg_Height-64, 0, 0, 0);
+        _dataTableView.showsVerticalScrollIndicator = NO;
     }
     return _dataTableView;
 }
@@ -100,6 +105,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.tintColor = themeColor;
+    
+    flag = 1;
     fruitnum = 1;
 //    [self setupTableView];
     [self.view addSubview:self.dataTableView];
@@ -131,7 +140,8 @@
             self.fruit = fruit;
             
             [self.dataTableView reloadData];
-            
+            [self.bgView sd_setImageWithURL:[NSURL getDetailImgUrlWithId:self.id anddetailImgUrl:self.fruit.mainImgUrl] placeholderImage:nil];
+       
         }else{
             NSLog(@"请求结果错误");
         }
@@ -139,6 +149,10 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"失败");
+        if (flag < 5) {
+            flag++;
+            [self sendRequest];
+        }
     }];
 }
 

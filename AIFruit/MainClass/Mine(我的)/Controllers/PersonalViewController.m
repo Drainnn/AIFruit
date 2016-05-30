@@ -15,7 +15,7 @@
 #import "AppDelegate.h"
 #import "UserInfo.h"
 
-@interface PersonalViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface PersonalViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong) UITableView *dataTableView;
 
@@ -103,11 +103,23 @@
         [cell setupCell];
         __weak PersonalViewController *weakSelf = self;
         cell.didlogoutBtn = ^(){
-            [weakSelf didLogoutBtn];
+            [weakSelf showlogoutAlert];
         };
         return cell;
     }
 }
+
+-(void)showlogoutAlert{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"确定要退出登录？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alert show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        [self didLogoutBtn];
+    }
+}
+
 
 -(void)didLogoutBtn{
     NSFileManager *manager = [NSFileManager defaultManager];

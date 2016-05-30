@@ -43,11 +43,14 @@
         [btn setBackgroundColor:UIColorWithRGBA(255, 255, 255, 1)];
         [btn.layer setBorderWidth:1.0];
         [btn.layer setBorderColor:UIColorWithRGBA(220, 225, 227, 1).CGColor];
+        [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
         [btn.layer setCornerRadius:4];
     }
-    
 
-    
+}
+
+-(void)btnAction:(UIButton *)sender{
+    _didtosearchlist(sender.titleLabel.text);
 }
 
 @end

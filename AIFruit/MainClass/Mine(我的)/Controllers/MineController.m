@@ -138,6 +138,7 @@ NSString *identifier = @"collectionCell";
         if (!cell) {
             cell = [[[NSBundle mainBundle]loadNibNamed:identifier owner:nil options:nil]firstObject];
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setupCell];
         return cell;
     }else if(indexPath.row == 2){

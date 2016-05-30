@@ -10,6 +10,7 @@
 #import "Order.h"
 
 typedef void (^DidToOrderDetail)(Order *);
+typedef void (^DidToPayOrder)(Order *);
 
 @interface waitPayTableController : UIViewController
 
@@ -17,5 +18,7 @@ typedef void (^DidToOrderDetail)(Order *);
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
 @property (nonatomic, copy) DidToOrderDetail didToOrderDetail;
+
+@property (nonatomic, copy) DidToPayOrder didToPayOrder;
 
 @end

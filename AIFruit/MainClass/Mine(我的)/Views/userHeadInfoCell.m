@@ -55,6 +55,7 @@
         self.headImgView.layer.cornerRadius = 30;
         self.headImgView.layer.borderColor = themeColor.CGColor;
         self.headImgView.layer.borderWidth = 1.0f;
+        [self.headImgView setImage:[UIImage imageNamed:@"icon.png"]];
 
         self.phoneLabel.text = APPDELEGATE.userinfo.mobileNo;
         [self.phoneLabel setFont:UIFontWithSize(12)];

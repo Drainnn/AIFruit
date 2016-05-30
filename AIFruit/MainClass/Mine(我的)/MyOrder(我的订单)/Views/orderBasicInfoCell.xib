@@ -83,7 +83,7 @@
                 <outlet property="sendTimeLabel" destination="8RZ-dq-qaI" id="jRz-Qh-BRB"/>
                 <outlet property="totalPriceLabel" destination="3Xv-mh-TGW" id="AHT-fj-wE6"/>
             </connections>
-            <point key="canvasLocation" x="180" y="204"/>
+            <point key="canvasLocation" x="260" y="210"/>
         </tableViewCell>
     </objects>
 </document>

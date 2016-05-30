@@ -49,7 +49,12 @@
     NSMutableAttributedString *privilAttStr = [[NSMutableAttributedString alloc]initWithString:privilegePriceStr];
     //修改富文本中的不同文字的样式
     UIFont *f1 = UIFontWithSize(19);
-    [privilAttStr addAttribute:NSFontAttributeName value:f1 range:NSMakeRange(0, 3)];
+    if (privilegePriceStr.length >= 6) {
+        [privilAttStr addAttribute:NSFontAttributeName value:f1 range:NSMakeRange(0, 4)];
+    }else{
+        [privilAttStr addAttribute:NSFontAttributeName value:f1 range:NSMakeRange(0, 3)];
+    }
+    
     self.PrivilegePriceLabel.attributedText = privilAttStr;
     //销售数量
     self.saleNumLabel.text = [NSString stringWithFormat:@"已售：%d",list.saleNum];

@@ -42,7 +42,29 @@
         [imgView sd_setImageWithURL:[NSURL getMainImgURLWithId:id andmainImgUrl:dict[@"mainImgUrl"]] placeholderImage:nil];
         [self.ImgScrollView addSubview:imgView];
     }
+    
+    if (order.state == 1) {
+        [self.stateBtn setTitle:@"去支付" forState:UIControlStateNormal];
+        [self.stateBtn addTarget:self action:@selector(toPayAction:) forControlEvents:UIControlEventTouchUpInside];
+    }else if(order.state == 2){
+        [self.stateBtn setTitle:@"去评价" forState:UIControlStateNormal];
+        [self.stateBtn addTarget:self action:@selector(toCommentAction:) forControlEvents:UIControlEventTouchUpInside];
+    }else if (order.state == 3){
+        [self.stateBtn setTitle:@"已完成" forState:UIControlStateNormal];
+    }
+    [self.stateBtn.layer setBorderWidth:0.5];
+    [self.stateBtn.layer setBorderColor:themeColor.CGColor];
+    [self.stateBtn.layer setCornerRadius:2.0];
+    [self.stateBtn setTitleColor:themeColor forState:UIControlStateNormal];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+}
+
+-(void)toPayAction:(UIButton *)sender{
+    _topayclicked();
+}
+
+-(void)toCommentAction:(UIButton *)sender{
+    _tocommentclicked();
 }
 
 - (void)drawRect:(CGRect)rect

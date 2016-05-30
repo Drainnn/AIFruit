@@ -247,41 +247,42 @@
     searchListVC.keyword = Inputkeyword;
     [self ClickCancel:nil];
     
+    
+    [self saveSearchRecord:Inputkeyword];
+    
+    [self.navigationController pushViewController:searchListVC animated:YES];
+    return YES;
+}
+
+#pragma mark - 保存搜索记录
+-(void)saveSearchRecord:(NSString *)search{
     //~~~~~~~~~~~~这里的代码可以优化下~~~~~~~~~~~~
     //搜索记录保存
+    
     if (APPDELEGATE.searchRecordArray.count > 0) {
         int isNewKeyword = 1;
         for (NSDictionary *dic in APPDELEGATE.searchRecordArray) {
             NSString *value = dic[searchHistoryKey];
-            if ([Inputkeyword isEqualToString:value]) {
+            if ([search isEqualToString:value]) {
                 isNewKeyword = 0;
                 break;
             }
         }
         //如果关键词不存在则保存
         if (isNewKeyword) {
-            NSDictionary *dic = [NSDictionary dictionaryWithObject:Inputkeyword forKey:searchHistoryKey];
+            NSDictionary *dic = [NSDictionary dictionaryWithObject:search forKey:searchHistoryKey];
             [APPDELEGATE.searchRecordArray addObject:dic];
             [self.appdelegate.searchRecordArray writeToFile:APPDELEGATE.searchRecordFilePath atomically:YES];
             [self.searchArray insertObject:dic atIndex:0];
             
         }
-     }else{
-         NSDictionary *dic = [NSDictionary dictionaryWithObject:Inputkeyword forKey:searchHistoryKey];
-         [APPDELEGATE.searchRecordArray addObject:dic];
-         [self.appdelegate.searchRecordArray writeToFile:APPDELEGATE.searchRecordFilePath atomically:YES];
-//         [self.searchArray addObject:dic];
-         [self.searchArray insertObject:dic atIndex:0];
-     }
-    
-    
-    [self.navigationController pushViewController:searchListVC animated:YES];
-    return YES;
-}
+    }else{
+        NSDictionary *dic = [NSDictionary dictionaryWithObject:search forKey:searchHistoryKey];
+        [APPDELEGATE.searchRecordArray addObject:dic];
+        [self.appdelegate.searchRecordArray writeToFile:APPDELEGATE.searchRecordFilePath atomically:YES];
+        [self.searchArray insertObject:dic atIndex:0];
+    }
 
--(void)textFieldDidBeginEditing:(UITextField *)textField
-{
-   
 }
 
 - (void)didReceiveMemoryWarning {
@@ -348,6 +349,10 @@
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setupCell];
+        __weak SearchTableViewController *weakSelf = self;
+        cell.didtosearchlist = ^(NSString *keyword){
+            [weakSelf hotRecommendClicked:keyword];
+        };
         return cell;
     }
     else{
@@ -382,6 +387,14 @@
         
     }
     
+}
+
+#pragma mark - 热门推荐点击事件
+-(void)hotRecommendClicked:(NSString *)keyword{
+    [self saveSearchRecord:keyword];
+    SearchListTableViewController *searchListVC = [[UIStoryboard storyboardWithName:@"SearchList" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListStoryboard"];
+    searchListVC.keyword = keyword;
+    [self.navigationController pushViewController:searchListVC animated:YES];
 }
 
 #pragma mark - 点击cell触发事件

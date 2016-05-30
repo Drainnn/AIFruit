@@ -20,11 +20,19 @@
 
 @property (nonatomic, strong) NSMutableArray *commentArr;
 @property (nonatomic, strong) commentTopView *topView;
+@property (nonatomic, strong) MBProgressHUD *waitHud;
 
 
 @end
 
 @implementation fruitCommentController
+
+-(MBProgressHUD *)waitHud{
+    if (!_waitHud) {
+        _waitHud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    }
+    return _waitHud;
+}
 
 -(NSMutableArray *)commentArr{
     if (!_commentArr) {
@@ -59,6 +67,14 @@
     [self.view addSubview:self.dataTableView];
     [self initTopView];
     [self setWarnInfor:@"网络连接异常"];
+    [self showhud];
+}
+
+-(void)showhud{
+    self.waitHud.mode = MBProgressHUDModeIndeterminate;
+    self.waitHud.color = [UIColor grayColor];
+    self.waitHud.margin = 10.f;
+    self.waitHud.removeFromSuperViewOnHide = YES;
 }
 
 -(void)sendRequest{
@@ -78,8 +94,7 @@
                 [self.commentArr addObject:comment];
             }
             
-//            titleStr = [NSString stringWithFormat:@"评价(%ld)",arr.count];
-//            self.navigationItem.title = titleStr;
+            [self.waitHud hide:YES];
             
             [self.dataTableView reloadData];
             

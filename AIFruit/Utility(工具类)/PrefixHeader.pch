@@ -87,6 +87,12 @@
 //水果列表图片url前缀
 #define mainImgUrlPrefix @"http://ai-fruit-resources.oss-cn-shanghai.aliyuncs.com/HeadImages"
 
+//水果详情图片url前缀
+#define detailImgUrlPrefix @"http://ai-fruit-resources.oss-cn-shanghai.aliyuncs.com/FruitImages"
+
+//首页精选图片url前缀
+#define shouyejingxuanImgUrlPrefix @"http://ai-fruit-resources.oss-cn-shanghai.aliyuncs.com/Shouyejingxuan"
+
 /*
  *分类接口
  */
@@ -106,6 +112,8 @@
 //#define SearchFruitByKeywordURL @"http://localhost:8080/ai-fruit-web/Search/SearchFruitByKeyword"
 #define SearchFruitByKeywordURL @"http://aifruit.applinzi.com/Search/SearchFruitByKeyword"
 
+#define GetShouyejingxuanUrl @"http://aifruit.applinzi.com/Fruit/ShouyeFruit"
+
 /*
  *详情接口
  */
@@ -119,6 +127,8 @@
 //查看我的评论
 #define MyCommentByUserId @"http://aifruit.applinzi.com/comment/MyComment"
 
+//新增评论
+#define AddNewCommentUrl @"http://aifruit.applinzi.com/comment/addComment"
 
 /*
  *登录接口
@@ -152,6 +162,8 @@
 #define finishOrderUrl @"http://aifruit.applinzi.com/order/FinishOrder"
 //查看订单详情
 #define orderDetailUrl @"http://aifruit.applinzi.com/order/OrderDetail"
+//订单支付成功
+#define paySuccessOrderUrl @"http://aifruit.applinzi.com/order/paySuccess"
 
 /*
  *用户信息接口

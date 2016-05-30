@@ -13,6 +13,7 @@
 @property (nonatomic, assign) int id;
 @property (nonatomic, copy) NSString *orderNO;
 @property (nonatomic, copy) NSString *status;
+@property (nonatomic, assign) int state;
 @property (nonatomic, assign) int totalPrice;
 @property (nonatomic, copy) NSString *addTime;
 @property (nonatomic, strong) NSArray *imgUrls;

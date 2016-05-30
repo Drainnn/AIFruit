@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *sendTimeLabel;
 
 
+
 -(void)setupCellWithOrderDetail:(OrderDetail *)orderDetail;
 
 

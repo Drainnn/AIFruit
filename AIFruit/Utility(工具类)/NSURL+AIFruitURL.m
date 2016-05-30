@@ -16,4 +16,16 @@
     return url;
 }
 
++(NSURL *)getDetailImgUrlWithId:(int)id anddetailImgUrl:(NSString *)imgUrl{
+    NSString *imgStr = [NSString stringWithFormat:@"%@/%@/%@",detailImgUrlPrefix,[NSString stringWithFormat:@"%d",id],imgUrl];
+    NSURL *url = [[NSURL alloc]initWithString:[imgStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    return url;
+}
+
++(NSURL *)getShouyejingxuanImgUrlWithId:(int)id andImgUrl:(NSString *)imgUrl{
+    NSString *imgStr = [NSString stringWithFormat:@"%@/%@/%@",shouyejingxuanImgUrlPrefix,[NSString stringWithFormat:@"%d",id],imgUrl];
+    NSURL *url = [[NSURL alloc]initWithString:[imgStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    return url;
+}
+
 @end

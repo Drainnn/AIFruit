@@ -26,4 +26,7 @@
 @interface orderpayViewController : UIViewController
 
 @property(nonatomic, strong)NSMutableArray *productList;
+
+@property (nonatomic, strong) NSMutableDictionary *orderDic;
+
 @end

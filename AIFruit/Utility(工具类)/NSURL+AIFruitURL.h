@@ -12,4 +12,8 @@
 
 +(NSURL *)getMainImgURLWithId:(int)id andmainImgUrl:(NSString *)imgUrl;
 
++(NSURL *)getDetailImgUrlWithId:(int)id anddetailImgUrl:(NSString *)imgUrl;
+
++(NSURL *)getShouyejingxuanImgUrlWithId:(int)id andImgUrl:(NSString *)imgUrl;
+
 @end

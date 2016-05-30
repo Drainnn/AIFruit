@@ -90,7 +90,11 @@
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return @"kobe";
+    if (section == 0) {
+        return @"订单详情";
+    }else{
+        return @"配送地址";
+    }
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

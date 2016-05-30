@@ -22,7 +22,7 @@
 }
 
 -(void)setupCellWithImages:(NSArray *)imgArr{
-    bannerSrcollView *instantScrollView = [[bannerSrcollView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 132) WithImages:imgArr];
+    bannerSrcollView *instantScrollView = [[bannerSrcollView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 150) WithImages:imgArr];
     instantScrollView.scrollDelayTime = 2;
     _scrollView = (UIScrollView *)instantScrollView;
     

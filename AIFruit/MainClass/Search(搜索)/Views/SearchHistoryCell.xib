@@ -29,7 +29,7 @@
                 <outlet property="historyIconView" destination="XKR-vB-D1H" id="nn0-cT-4ZC"/>
                 <outlet property="historyLabel" destination="zRl-2d-E4u" id="0h2-Cp-IAq"/>
             </connections>
-            <point key="canvasLocation" x="368.5" y="388"/>
+            <point key="canvasLocation" x="411.5" y="378"/>
         </tableViewCell>
     </objects>
     <resources>

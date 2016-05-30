@@ -13,6 +13,7 @@
 #import "MJExtension.h"
 #import "AppDelegate.h"
 
+
 @interface waitCommentController ()<UITableViewDataSource,UITableViewDelegate>{
     int flag;
 }
@@ -79,7 +80,17 @@
     Order *order = [self.dataArray objectAtIndex:indexPath.section];
     [cell setupCellWithOrder:order];
     
+    __weak waitCommentController *weakSelf = self;
+    cell.tocommentclicked = ^(){
+        [weakSelf toCommentView:indexPath.section];
+    };
+    
     return cell;
+}
+
+-(void)toCommentView:(NSInteger)index{
+    _didtoaddcomment(self.dataArray,index);
+    
 }
 
 @end

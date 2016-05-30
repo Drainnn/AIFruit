@@ -1012,6 +1012,12 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	[self setNeedsDisplay];
 }
 
+-(void)showIndeterminate:(MBProgressHUD *)hud{
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.color = [UIColor grayColor];
+    hud.margin = 10.f;
+    hud.removeFromSuperViewOnHide = YES;
+}
 
 
 @end

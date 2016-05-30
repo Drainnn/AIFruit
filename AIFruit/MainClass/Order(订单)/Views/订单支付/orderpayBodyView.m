@@ -17,12 +17,12 @@
         self.layer.borderColor = border_color_gray.CGColor;
         [self setBackgroundColor:[UIColor whiteColor]];
         
-        [self setupView];
+        
     }
     return self;
 }
 
--(void)setupView{
+-(void)setupViewWithDict:(NSMutableDictionary *)dict{
     
     self.orderNoTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(14, 11, 68, 20)];
     [self.orderNoTitleLabel setFont:UIFontWithSize(14)];
@@ -30,7 +30,7 @@
     
     self.orderNoLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 11, 130, 20)];
     [self.orderNoLabel setFont:UIFontWithSize(14)];
-    self.orderNoLabel.text = @"234092304";
+    self.orderNoLabel.text = dict[@"orderNO"];
     
     self.payTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(14, 36, 68, 20)];
     self.payTitleLabel.text = @"应付金额:";
@@ -39,7 +39,7 @@
     self.payLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 36, 134, 20)];
     [self.payLabel setFont:UIFontWithSize(14)];
     [self.payLabel setTextColor:fruit_red];
-    self.payLabel.text = @"￥32.00";
+    self.payLabel.text = [NSString stringWithFormat:@"￥%@",dict[@"totalPrice"]];
     
     self.payWayTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(14, 63, 68, 20)];
     self.payWayTitleLabel.text = @"支付方式:";

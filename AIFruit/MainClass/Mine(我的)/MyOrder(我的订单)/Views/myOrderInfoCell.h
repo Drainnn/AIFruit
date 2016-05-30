@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Order.h"
 
+typedef void (^ToPayClicked)();
+typedef void (^ToCommentClicked)();
+
 @interface myOrderInfoCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -28,6 +31,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *payPriceLabel;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *ImgScrollView;
+
+@property (weak, nonatomic) IBOutlet UIButton *stateBtn;
+
+@property (nonatomic, copy) ToPayClicked topayclicked;
+@property (nonatomic, copy) ToCommentClicked tocommentclicked;
 
 
 -(void)setupCellWithOrder:(Order *)order;

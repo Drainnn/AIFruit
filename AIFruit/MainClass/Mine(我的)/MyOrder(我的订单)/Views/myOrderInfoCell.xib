@@ -61,6 +61,10 @@
                         <color key="textColor" red="1" green="0.03014565537" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svz-nx-VRK">
+                        <rect key="frame" x="242" y="128" width="65" height="30"/>
+                        <state key="normal" title="Button"/>
+                    </button>
                 </subviews>
             </tableViewCellContentView>
             <connections>
@@ -69,11 +73,12 @@
                 <outlet property="borderTopLabel" destination="g6N-7q-QWa" id="Fib-uH-KLy"/>
                 <outlet property="orderNOLabel" destination="MYc-Cc-ROQ" id="jVG-Yt-S2u"/>
                 <outlet property="payPriceLabel" destination="I2J-jk-3dp" id="fsQ-2R-QVl"/>
+                <outlet property="stateBtn" destination="svz-nx-VRK" id="BMf-oq-8pS"/>
                 <outlet property="statusLabel" destination="s4C-X8-Fs2" id="Wzg-xu-jcN"/>
                 <outlet property="timeLabel" destination="ceE-HI-hT0" id="c1J-xj-8Oy"/>
                 <outlet property="titleLabel" destination="ulb-M3-AcV" id="ptI-xe-2Lq"/>
             </connections>
-            <point key="canvasLocation" x="438" y="207"/>
+            <point key="canvasLocation" x="459" y="224"/>
         </tableViewCell>
     </objects>
 </document>

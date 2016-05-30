@@ -14,7 +14,7 @@
                         <viewControllerLayoutGuide type="bottom" id="cYZ-GT-IZ2"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="lt1-6c-UQ3">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
